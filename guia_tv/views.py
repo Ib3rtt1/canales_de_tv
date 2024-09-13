@@ -15,3 +15,7 @@ def index(request):
 
 def contacto(request):
     return render(request, 'guia_tv/contacto.html')
+
+
+def carrusel_canales(request):
+    return render(request, 'guia_tv/carrusel_canales.html')

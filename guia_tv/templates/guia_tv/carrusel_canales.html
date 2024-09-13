@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel Infinito Lateral</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f3f3;
+        }
+
+        .carrusel-container {
+            width: 300px;  /* Ajusta el ancho del carrusel */
+            height: 400px; /* Ajusta la altura del carrusel */
+            overflow: hidden; /* Oculta los elementos que se salen del contenedor */
+            position: relative;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .carrusel {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scroll 10s linear infinite;
+        }
+
+        .carrusel img {
+            width: 100%;
+            border-bottom: 2px solid #ccc;
+        }
+
+        @keyframes scroll {
+            0% {
+                top: 0;
+            }
+            100% {
+                top: -100%;
+            }
+        }
+
+        /* Estilo para hacer que el carrusel sea infinito */
+        .carrusel img:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="carrusel-container">
+    <div class="carrusel">
+        <img src="https://via.placeholder.com/300x200?text=Imagen+1" alt="Imagen 1">
+        <img src="https://via.placeholder.com/300x200?text=Imagen+2" alt="Imagen 2">
+        <img src="https://via.placeholder.com/300x200?text=Imagen+3" alt="Imagen 3">
+        <img src="https://via.placeholder.com/300x200?text=Imagen+4" alt="Imagen 4">
+        <img src="https://via.placeholder.com/300x200?text=Imagen+5" alt="Imagen 5">
+    </div>
+</div>
+
+</body>
+</html>
