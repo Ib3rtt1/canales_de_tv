@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<!-- Etiqueta <html>: Inicio del documento HTML, con atributo 'lang' para definir el idioma español -->
+
+<head>
+    <!-- <head>: Contiene los metadatos, enlaces a recursos externos como CSS y JavaScript -->
+
+    <!-- Definición de la codificación de caracteres UTF-8 -->
+    <meta charset="utf-8">
+
+    <!-- Etiqueta para la vista responsiva en dispositivos móviles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Título de la página que aparece en la pestaña del navegador -->
+    <title>viendotele.cl - Canales de televisión chilena y mundial</title>
+
+    <!-- Metadatos para mejorar la visibilidad en motores de búsqueda y redes sociales -->
+    <meta property="description" content="Muchos canales de tele. Todos gratis. Todos al mismo tiempo.">
+    
+    <!-- Metadatos Open Graph (usados para mejorar cómo se comparte en redes sociales como Facebook) -->
+    <meta property="og:title" content="viendotele.cl - Canales de televisión chilena y mundial">
+    <meta property="og:description" content="Muchos canales de tele. Todos gratis. Todos al mismo tiempo.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.viendotele.cl/assets-tele/og-image-ok.jpg" />
+    <meta property="og:url" content="https://www.viendotele.cl" />
+
+    <!-- Metadatos Twitter Cards (usados para mejorar cómo se comparte en Twitter) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="viendotele.cl - Canales de televisión chilena y mundial">
+    <meta name="twitter:description" content="Muchos canales de tele. Todos gratis. Todos al mismo tiempo.">
+    <meta name="twitter:image" content="https://www.viendotele.cl/assets-tele/og-image-ok.jpg" />
+    <meta name="twitter:creator" content="@pottersys" />
+
+    <!-- Enlace a Bootstrap CSS para estilos prediseñados y diseño responsivo -->
+    <link rel="stylesheet" href="assets-tele/static/bootstrap-4.6.1.min.css" 
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" 
+          crossorigin="anonymous">
+
+    <!-- Enlace a fuentes externas desde Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,500,0,200&family=Press+Start+2P&display=swap" />
+
+    <!-- Enlace a un archivo CSS personalizado para la página -->
+    <link rel="stylesheet" href="assets-tele/style.css?e=202407281726">
+
+    <!-- Google Analytics para rastrear la interacción de los usuarios con el sitio -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LZCSWFD13G"></script>
+    <script>
+        // Configuración de Google Analytics para rastrear eventos y mantener "viva" la sesión del usuario
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TQXH7JGEJJ');
+
+        // Función para enviar un evento "keepalive" cada 5 minutos (300 segundos)
+        function keep_the_beat() {
+            gtag("event", "keepalive")
+        }
+        setInterval('keep_the_beat', 1000 * 300); // Cada 300 segundos (5 minutos)
+    </script>
+</head>
+
+<body>
+    <!-- Contenido visible de la página -->
+
+    <!-- Reloj y mensaje de advertencia -->
+    <div class="row no-gutters" id="los-canales">
+        <div class="col-4 col-md-3 offset-md-3 col-lg-4 offset-lg-4" id="reloj-control">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 align-center reloj-container">
+                        <!-- Reloj oculto (que parece tener otro uso interno) -->
+                        <span class="reloj la-cuenta" style="display:none;color:green;background:#000000;">24.500-03</span>
+                        <!-- Reloj principal con el horario en Santiago de Chile -->
+                        <span id="Santiago_z179" style="color:green;background:#000000;" class="reloj really-a-clock"></span>
+                        <p>en Santiago de Chile</p>
+                    </div>
+
+                    <div class="col-12 impressum" style="text-align: center;">
+                        <!-- Enlace al sitio "time.is" para verificar la hora -->
+                        <a href="https://time.is/Santiago" id="time_is_link" rel="nofollow" target="_blank" style="font-size: 12px;color:#ffffff;background:#000000">Reloj: time.is</a>
+                        <!-- Enlace al perfil de Twitter del creador -->
+                        <a href="https://twitter.com/pottersys" target="_blank" style="font-size: 12px;color:#ffffff;background:#000000">&mdash; @pottersys</a>
+
+                        <!-- Mensaje de advertencia sobre no conducir si se bebe alcohol -->
+                        <p class="mensaje" style="color: white; text-align: center; font-size: 16px; margin: 0 auto; padding: 1em 0 0 0;width:70%">
+                            Si tomas, no manejas.<br>¿Es tan difícil entenderlo?
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Imagen oculta que probablemente aparece en ciertas condiciones -->
+            <div id="una-monedita" style="display:none;">
+                <img src="assets-tele/unas-moneditas.jpg" alt="Una monedita por el amor de Dios" data-toggle="modal" data-target="#modal-tarrito">
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para abrir un modal de selección de canales -->
+    <div class="others">
+        <div class="boton-modal modal-selector">
+            <span class="material-symbols-outlined" data-toggle="modal" data-target="#modal-selecta">add_circle</span>
+        </div>
+
+        <!-- Modal para seleccionar canales -->
+        <div class="modal fade" id="modal-selecta" tabindex="-1" role="dialog" aria-labelledby="modal-selecta-title" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- Título del modal -->
+                        <h5 class="modal-title" id="modal-selecta-title">Selecciona tus canales</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row channel-selector">
+                            <!-- Esta sección se llenará dinámicamente por JavaScript -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal que solicita donaciones -->
+        <div class="modal fade" id="modal-tarrito" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5><em>Mi intención no es molestar…</em></h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>…pero quiero ver si las personas leen y se enternecen cuando uno pasa el tarrito</p>
+                        <p><strong>Importante:</strong> el servicio seguirá siendo gratuito, usando fuentes gratuitas; sólo es para apoyar lo que cuesta mantener el servicio</p>
+                        <p><a href="https://www.flow.cl/btn.php?token=wnl9g44" target="_blank" class="btn btn-primary btn-block mx-auto">Donar</a></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enlace para abrir el modal de donaciones -->
+        <div id="huincha-donate-bottom">
+            <a href="#" data-toggle="modal" data-target="#modal-tarrito" style="display:none;">¿Tiene una monedita que le sobre?</a>
+        </div>
+    </div>
+
+    <!-- Bibliotecas JavaScript que controlan la interacción y funcionalidad del sitio -->
+    <script src="assets-tele/static/lodash-4.17.15.min.js" integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmo=" crossorigin="anonymous"></script>
+    <script src="assets-tele/static/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRN5eVo4N1W5qJG8fH1FaI3BfSXp5uMe/MoewgF30" crossorigin="anonymous"></script>
+    <script src="assets-tele/static/bootstrap.bundle-4.6.1.min.js" integrity="sha384-fQybjgWLrvvRgtW6B4SkR5v+U5Elpr6Vm1E9tjPRH9b6mTYG50w+IBQMIr8XWl30" crossorigin="anonymous"></script>
+
+    <!-- Script personalizado para el sitio -->
+    <script src="assets-tele/code.js?e=202407281726"></script>
+</body>
+
+</html>

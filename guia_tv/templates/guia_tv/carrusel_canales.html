@@ -3,68 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel Infinito Lateral</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f3f3f3;
-        }
-
-        .carrusel-container {
-            width: 300px;  /* Ajusta el ancho del carrusel */
-            height: 400px; /* Ajusta la altura del carrusel */
-            overflow: hidden; /* Oculta los elementos que se salen del contenedor */
-            position: relative;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .carrusel {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: 0;
-            left: 0;
-            animation: scroll 10s linear infinite;
-        }
-
-        .carrusel img {
-            width: 100%;
-            border-bottom: 2px solid #ccc;
-        }
-
-        @keyframes scroll {
-            0% {
-                top: 0;
-            }
-            100% {
-                top: -100%;
-            }
-        }
-
-        /* Estilo para hacer que el carrusel sea infinito */
-        .carrusel img:last-child {
-            border-bottom: none;
-        }
-    </style>
+    <title>Carrusel Infinito de Canales</title>
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Archivo CSS del carrusel -->
+    <link rel="stylesheet" href="{% static 'guia_tv/css/carrusel.css' %}">
 </head>
 <body>
-
-<div class="carrusel-container">
-    <div class="carrusel">
-        <img src="https://via.placeholder.com/300x200?text=Imagen+1" alt="Imagen 1">
-        <img src="https://via.placeholder.com/300x200?text=Imagen+2" alt="Imagen 2">
-        <img src="https://via.placeholder.com/300x200?text=Imagen+3" alt="Imagen 3">
-        <img src="https://via.placeholder.com/300x200?text=Imagen+4" alt="Imagen 4">
-        <img src="https://via.placeholder.com/300x200?text=Imagen+5" alt="Imagen 5">
+    {% include 'navbar.html' %}
+    
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Columna izquierda con el carrusel vertical -->
+            <div class="col-md-3 d-flex flex-column align-items-start">
+                <button class="control-btn my-2" onclick="scrollUp()">⬆️ Subir</button>
+                <div class="carrusel-vertical">
+                    <div id="carouselVertical" class="carrusel-container">
+                        <!-- Duplicamos las imágenes para hacer el efecto infinito --> 
+                        <img src="{% static 'guia_tv/img/Logotipo_de_Canal_13_Chile_(2010–2018).svg.png' %}" class="logo-canal" alt="Imagen 1">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+2" class="logo-canal" alt="Imagen 2">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+3" class="logo-canal" alt="Imagen 3">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+4" class="logo-canal" alt="Imagen 4">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+5" class="logo-canal" alt="Imagen 5">
+                        <!-- Imágenes duplicadas -->
+                        <img src="{% static 'guia_tv/img/Logotipo_de_Canal_13_Chile_(2010–2018).svg.png' %}" class="logo-canal" alt="Imagen 1">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+2" class="logo-canal" alt="Imagen 2">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+3" class="logo-canal" alt="Imagen 3">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+4" class="logo-canal" alt="Imagen 4">
+                        <img src="https://via.placeholder.com/100x100?text=Imagen+5" class="logo-canal" alt="Imagen 5">
+                    </div>
+                </div>
+                <button class="control-btn my-2" onclick="scrollDown()">⬇️ Bajar</button>
+            </div>
+            <!-- Columna derecha (contenido adicional) -->
+            <div class="col-md-9 py-3">
+                <h1 class="text-center">Bienvenido a la Guía de TV</h1>
+                <p class="text-center border h-75">Contenido aquí...</p>
+            </div>
+        </div>
     </div>
-</div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Archivo JS del carrusel -->
+    <script src="{% static 'guia_tv/js/carrusel.js' %}"></script>
 </body>
 </html>

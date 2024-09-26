@@ -1,0 +1,47 @@
+
+.carrusel-vertical {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px); /* Altura del contenedor menos espacio para los botones */
+  width: 100%; /* Ancho del carrusel (aumentado para mayor espacio) */
+  overflow: hidden; /* Oculta el contenido que desborda */
+  position: relative;
+}
+
+.carrusel-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden; /* Oculta el scroll visualmente */
+  height: 100%; /* Ocupa toda la altura del contenedor */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  position: relative;
+}
+
+.carrusel-vertical img {
+  max-width: 100%; /* Las imágenes no excederán el ancho del contenedor */
+  height: 100px; /* Mantiene proporciones */
+  object-fit: contain; /* Mantiene las proporciones dentro del contenedor */
+}
+
+.logo-canal {
+  width: 100px; /* Ajusta el ancho del logo según sea necesario */
+  height: 100px; /* Mantener proporciones */
+}
+
+.control-btn {
+  width: 100%; /* Botón ocupa todo el ancho del contenedor */
+  height: 50px; /* Aumenta la altura del botón para hacerlo más grande */
+  background-color: #007bff; /* Color de fondo del botón */
+  color: white; /* Color del texto del botón */
+  border: none; /* Sin borde */
+  padding: 0px; /* Relleno interno */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.control-btn:focus {
+  outline: none; /* Sin borde de enfoque */
+}
+
+.control-btn.my-2 {
+  margin: 5px 0; /* Margen entre botones */
+}
