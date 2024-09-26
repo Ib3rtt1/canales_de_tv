@@ -28,3 +28,21 @@ function scrollDown() {
 window.onload = function () {
     carrusel.scrollTop = carrusel.scrollHeight / 2;
 }
+
+// carrusel.js
+
+function loadIframe(videoUrl) {
+    const iframe = document.getElementById('videoIframe');
+    iframe.src = videoUrl; // Cambia la URL del iframe
+    const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+    videoModal.show(); // Muestra el modal
+}
+
+// Al cerrar el modal, reinicia el video
+const videoModal = document.getElementById('videoModal');
+videoModal.addEventListener('hidden.bs.modal', function () {
+    const iframe = videoModal.querySelector('iframe');
+    iframe.src = ''; // Reinicia el iframe
+});
+
+

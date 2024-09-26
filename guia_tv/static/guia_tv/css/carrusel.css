@@ -1,8 +1,16 @@
+.barra_lateral {
+  max-height: 550px; /* Altura máxima ajustada */
+  overflow-y: auto; /* Desplazamiento vertical */
+  padding: 0px; /* Espaciado interno */
+  margin: 0; /* Sin margen externo */
+  border: 1px solid #111; /* Opcional: Agrega un borde para visualizar la barra lateral */
+}
+
 
 .carrusel-vertical {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px); /* Altura del contenedor menos espacio para los botones */
+  height: 100%; /* Altura del contenedor menos espacio para los botones */
   width: 100%; /* Ancho del carrusel (aumentado para mayor espacio) */
   overflow: hidden; /* Oculta el contenido que desborda */
   position: relative;
@@ -24,13 +32,13 @@
 }
 
 .logo-canal {
-  width: 100px; /* Ajusta el ancho del logo según sea necesario */
-  height: 100px; /* Mantener proporciones */
+  width: 100%; /* Ajusta el ancho del logo según sea necesario */
+  height: 100%; /* Mantener proporciones */
 }
 
 .control-btn {
   width: 100%; /* Botón ocupa todo el ancho del contenedor */
-  height: 50px; /* Aumenta la altura del botón para hacerlo más grande */
+  height: 40px; /* Aumenta la altura del botón para hacerlo más grande */
   background-color: #007bff; /* Color de fondo del botón */
   color: white; /* Color del texto del botón */
   border: none; /* Sin borde */
