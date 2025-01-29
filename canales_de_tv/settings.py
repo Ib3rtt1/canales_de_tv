@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+@gh9@t!x7x&7@yi2t9&^(%45=9$f10#7l!&j*mbk^n#t&_7z2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['canales-de-tv.onrender.com']
+ALLOWED_HOSTS = ['canales-de-tv.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
