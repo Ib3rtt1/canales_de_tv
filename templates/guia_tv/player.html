@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{{ channel.name }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+<div class="col-lg-9">
+
+<div class="ratio ratio-16x9">
+
+<video
+
+id="video"
+
+controls
+
+autoplay
+
+></video>
+
+</div>
+
+</div>
+
+<div class="col-lg-3">
+
+<h2>
+
+{{ channel.name }}
+
+</h2>
+
+<p>
+
+{{ channel.description }}
+
+</p>
+
+<ul class="list-group">
+
+<li class="list-group-item">
+
+<strong>País:</strong>
+
+{{ channel.country }}
+
+</li>
+
+<li class="list-group-item">
+
+<strong>Categoría:</strong>
+
+{{ channel.category }}
+
+</li>
+
+<li class="list-group-item">
+
+<strong>Idioma:</strong>
+
+{{ channel.language }}
+
+</li>
+
+<li class="list-group-item">
+
+<strong>Visitas:</strong>
+
+{{ channel.views }}
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+
+const video=document.getElementById("video");
+
+const src="{{ channel.stream_url }}";
+
+if(Hls.isSupported()){
+
+const hls=new Hls();
+
+hls.loadSource(src);
+
+hls.attachMedia(video);
+
+}else{
+
+video.src=src;
+
+}
+
+</script>
+
+{% endblock %}

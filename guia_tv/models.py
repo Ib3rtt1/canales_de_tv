@@ -43,7 +43,9 @@ class Category(models.Model):
 
 
 class Channel(models.Model):
+
     name = models.CharField(max_length=200)
+
     slug = models.SlugField(unique=True, blank=True)
 
     description = models.TextField(blank=True)
@@ -51,7 +53,7 @@ class Channel(models.Model):
     logo = models.ImageField(
         upload_to="channels/logos/",
         blank=True,
-        null=True
+        null=True,
     )
 
     stream_url = models.URLField()
@@ -62,35 +64,36 @@ class Channel(models.Model):
         Country,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="channels"
+        related_name="channels",
     )
 
     language = models.ForeignKey(
         Language,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="channels"
+        related_name="channels",
     )
 
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="channels"
+        related_name="channels",
     )
 
     is_active = models.BooleanField(default=True)
 
+    is_featured = models.BooleanField(default=False)
+
+    is_live = models.BooleanField(default=True)
+
     views = models.PositiveIntegerField(default=0)
+
+    bitrate = models.PositiveIntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = "Canal"
-        verbose_name_plural = "Canales"
 
     def save(self, *args, **kwargs):
         if not self.slug:

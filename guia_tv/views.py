@@ -1,21 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
-# Create your views here.
-# guia_tv/views.py
-from django.http import HttpResponse
+from .models import Category, Channel
 
 
-def index(request):
-    return HttpResponse("Bienvenido a la guía de TV")
+def home(request):
+    categories = (
+        Category.objects.prefetch_related("channels")
+        .order_by("name")
+    )
+
+    context = {
+        "categories": categories
+    }
+
+    return render(request, "guia_tv/index.html", context)
 
 
-def index(request):
-    return render(request, 'guia_tv/index.html')
+def channel_detail(request, slug):
 
+    channel = get_object_or_404(
+        Channel,
+        slug=slug,
+        is_active=True
+    )
 
-def contacto(request):
-    return render(request, 'guia_tv/contacto.html')
+    channel.views += 1
+    channel.save(update_fields=["views"])
 
+    context = {
+        "channel": channel
+    }
 
-def carrusel_canales(request):
-    return render(request, 'guia_tv/carrusel_canales.html')
+    return render(request, "guia_tv/player.html", context)

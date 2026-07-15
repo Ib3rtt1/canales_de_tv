@@ -1,0 +1,51 @@
+body{
+
+    background:#121212;
+
+    color:white;
+
+}
+
+a{
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+.card{
+
+    background:#1f1f1f;
+
+    border:none;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:scale(1.05);
+
+}
+
+.card img{
+
+    height:180px;
+
+    object-fit:contain;
+
+    padding:20px;
+
+}
+
+.category-title{
+
+    margin-top:50px;
+
+    margin-bottom:20px;
+
+    font-weight:bold;
+
+}
