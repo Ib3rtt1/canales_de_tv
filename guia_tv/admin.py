@@ -5,6 +5,7 @@ from .models import (
     Channel,
     Country,
     Language,
+    IPTVSource,
 )
 
 
@@ -52,3 +53,18 @@ class ChannelAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         "slug": ("name",)
     }
+
+
+@admin.register(IPTVSource)
+class IPTVSourceAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "enabled",
+        "last_update",
+    )
+
+    search_fields = (
+        "name",
+        "url",
+    )

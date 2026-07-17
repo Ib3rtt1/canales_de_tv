@@ -103,3 +103,27 @@ class Channel(models.Model):
 
     def __str__(self):
         return self.name
+
+class IPTVSource(models.Model):
+
+    name = models.CharField(max_length=150)
+
+    url = models.URLField(unique=True)
+
+    enabled = models.BooleanField(default=True)
+
+    last_update = models.DateTimeField(
+        blank=True,
+        null=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        verbose_name = "Fuente IPTV"
+        verbose_name_plural = "Fuentes IPTV"
+
+    def __str__(self):
+        return self.name
