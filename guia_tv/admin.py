@@ -61,7 +61,19 @@ class IPTVSourceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "enabled",
+        "auto_update",
+        "priority",
+        "total_channels",
         "last_update",
+    )
+
+    list_filter = (
+        "enabled",
+        "auto_update",
+    )
+
+    ordering = (
+        "priority",
     )
 
     search_fields = (

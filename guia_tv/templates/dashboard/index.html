@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+Dashboard
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<h1 class="mb-5">
+
+Dashboard
+
+</h1>
+
+<div class="row">
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ channels }}</h1>
+
+<p>Canales</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ countries }}</h1>
+
+<p>Países</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ categories }}</h1>
+
+<p>Categorías</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<div class="row">
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ languages }}</h1>
+
+<p>Idiomas</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ sources }}</h1>
+
+<p>Fuentes IPTV</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="card text-center">
+
+<div class="card-body">
+
+<h1>{{ active_channels }}</h1>
+
+<p>Canales Activos</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="row">
+
+<div class="col-lg-3 d-grid">
+
+<a
+href="/admin/"
+
+class="btn btn-primary btn-lg">
+
+Administración
+
+</a>
+
+</div>
+
+<div class="col-lg-3 d-grid">
+
+<a
+href="{% url 'sync_channels' %}"
+
+class="btn btn-success btn-lg">
+
+Actualizar IPTV
+
+</a>
+
+</div>
+
+<div class="col-lg-3 d-grid">
+
+<a
+href="/"
+
+class="btn btn-warning btn-lg">
+
+Ver Canales
+
+</a>
+
+</div>
+
+<div class="col-lg-3 d-grid">
+
+<a
+href="#"
+
+class="btn btn-danger btn-lg">
+
+Estadísticas
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
