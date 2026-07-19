@@ -36,6 +36,7 @@ INSTALLED_APPS = [
 
     # Apps del proyecto
     "guia_tv",
+    "accounts",
 ]
 
 
