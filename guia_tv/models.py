@@ -104,25 +104,28 @@ class Channel(models.Model):
     )
 
     country = models.ForeignKey(
-        Country,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
+    Country,
+    on_delete=models.SET_NULL,
+    related_name="channels",
+    null=True,
+    blank=True,
     )
 
     language = models.ForeignKey(
-        Language,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
+    Language,
+    on_delete=models.SET_NULL,
+    related_name="channels",
+    null=True,
+    blank=True,
     )
 
     category = models.ForeignKey(
-        Category,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
-    )
+    Category,
+    on_delete=models.SET_NULL,
+    related_name="channels",
+    null=True,
+    blank=True,
+   )
 
     quality = models.CharField(
         max_length=10,
@@ -179,6 +182,15 @@ class Channel(models.Model):
         verbose_name = "Canal"
         verbose_name_plural = "Canales"
 
+        indexes = [
+            models.Index(fields=["name"]),
+            models.Index(fields=["slug"]),
+            models.Index(fields=["is_active"]),
+            models.Index(fields=["is_featured"]),
+            models.Index(fields=["country"]),
+            models.Index(fields=["category"]),
+        ]
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -187,23 +199,6 @@ class Channel(models.Model):
     def __str__(self):
         return self.name
     
-    class Meta:
-        ordering = ["name"]
-        verbose_name = "Canal"
-        verbose_name_plural = "Canales"
-
-    def save(self, *args, **kwargs):
-
-        if not self.slug:
-
-            self.slug = slugify(self.name)
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-
 class IPTVSource(models.Model):
 
     name = models.CharField(

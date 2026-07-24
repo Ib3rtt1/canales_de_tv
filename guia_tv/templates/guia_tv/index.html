@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+
+{% block title %}
+TV Online
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="bg-black rounded-4 p-5 mb-5 shadow">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-8">
+
+            <span class="badge bg-danger fs-6 mb-3">
+                EN VIVO
+            </span>
+
+            <h1 class="display-3 fw-bold">
+
+                TV Online
+
+            </h1>
+
+            <p class="lead text-secondary">
+
+                Disfruta cientos de canales de televisión en vivo organizados por
+                categorías, países e idiomas.
+
+            </p>
+
+            <a href="#canales" class="btn btn-danger btn-lg">
+
+                Explorar canales
+
+            </a>
+
+        </div>
+
+        <div class="col-lg-4 text-center">
+
+            <i class="bi bi-tv display-1 text-danger"></i>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CANALES DESTACADOS -->
+
+{% if featured_channels %}
+
+<section class="mb-5">
+
+    <h2 class="mb-4">
+
+        ⭐ Destacados
+
+    </h2>
+
+    <div class="row">
+
+        {% for channel in featured_channels %}
+
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6 mb-4">
+
+            <div class="card bg-dark border-secondary h-100 shadow">
+
+                {% if channel.logo %}
+
+                <img src="{{ channel.logo.url }}"
+                     class="card-img-top p-3"
+                     style="height:150px;object-fit:contain;">
+
+                {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-tv display-3"></i>
+
+                </div>
+
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h6>
+
+                        {{ channel.name }}
+
+                    </h6>
+
+                </div>
+
+                <div class="card-footer bg-transparent border-0">
+
+                    <a href="{% url 'player' channel.slug %}"
+                       class="btn btn-danger w-100">
+
+                        Ver canal
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- CATEGORÍAS -->
+
+<div id="canales">
+
+{% for category in categories %}
+
+<section class="mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h2>
+
+            {{ category.name }}
+
+        </h2>
+
+        <span class="badge bg-secondary">
+
+            {{ category.channels.count }} canales
+
+        </span>
+
+    </div>
+
+    <div class="row">
+
+        {% for channel in category.channels.all %}
+
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6 mb-4">
+
+            <div class="card bg-dark border-secondary h-100 shadow">
+
+                {% if channel.logo %}
+
+                <img src="{{ channel.logo.url }}"
+                     class="card-img-top p-3"
+                     style="height:150px;object-fit:contain;">
+
+                {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-tv display-3"></i>
+
+                </div>
+
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h6>
+
+                        {{ channel.name }}
+
+                    </h6>
+
+                    {% if channel.country %}
+
+                    <small class="text-secondary">
+
+                        {{ channel.country }}
+
+                    </small>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="card-footer bg-transparent border-0">
+
+                    <a href="{% url 'player' channel.slug %}"
+                       class="btn btn-danger w-100">
+
+                        Ver canal
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>No existen canales en esta categoría.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
