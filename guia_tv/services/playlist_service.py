@@ -3,12 +3,11 @@ import requests
 
 class PlaylistService:
 
-    @staticmethod
-    def download(url):
+    def download(self, source):
 
         response = requests.get(
-            url,
-            timeout=30
+            source.url,
+            timeout=60
         )
 
         response.raise_for_status()

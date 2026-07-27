@@ -2,11 +2,273 @@
 {% load static %}
 
 {% block title %}
-TV Online
+{{ channel.name }}
+{% endblock %}
+
+{% block css %}
+
+<link
+    href="https://vjs.zencdn.net/8.16.1/video-js.css"
+    rel="stylesheet">
+
+<style>
+
+.player-card{
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.channel-logo{
+    max-height:70px;
+}
+
+.info-card{
+
+    border-radius:15px;
+
+}
+
+.related-card{
+
+    transition:.2s;
+
+}
+
+.related-card:hover{
+
+    transform:translateX(5px);
+
+}
+
+</style>
+
 {% endblock %}
 
 {% block content %}
 
-<!-- Aquí irá la página principal -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Reproductor -->
+
+        <div class="col-lg-8">
+
+            <div class="card player-card shadow">
+
+                <div class="card-body p-0">
+
+                    <video
+                        id="tv-player"
+                        class="video-js vjs-big-play-centered"
+                        controls
+                        autoplay
+                        preload="auto"
+                        width="100%"
+                        height="550">
+
+                        <source
+                            src="{{ channel.stream_url }}"
+                            type="application/x-mpegURL">
+
+                    </video>
+
+                </div>
+
+            </div>
+
+            <!-- Información -->
+
+            <div class="card info-card shadow mt-4">
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-md-2 text-center">
+
+                            {% if channel.logo %}
+
+                                <img
+                                    src="{{ channel.logo.url }}"
+                                    class="img-fluid channel-logo">
+
+                            {% else %}
+
+                                <i class="bi bi-tv display-1"></i>
+
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-md-10">
+
+                            <h2>
+
+                                {{ channel.name }}
+
+                            </h2>
+
+                            <p>
+
+                                {{ channel.description }}
+
+                            </p>
+
+                            <span class="badge bg-primary">
+
+                                {{ channel.quality }}
+
+                            </span>
+
+                            {% if channel.status == "online" %}
+
+                                <span class="badge bg-success">
+
+                                    Online
+
+                                </span>
+
+                            {% elif channel.status == "offline" %}
+
+                                <span class="badge bg-danger">
+
+                                    Offline
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Verificando
+
+                                </span>
+
+                            {% endif %}
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col">
+
+                                    <strong>País</strong>
+
+                                    <br>
+
+                                    {{ channel.country }}
+
+                                </div>
+
+                                <div class="col">
+
+                                    <strong>Categoría</strong>
+
+                                    <br>
+
+                                    {{ channel.category }}
+
+                                </div>
+
+                                <div class="col">
+
+                                    <strong>Idioma</strong>
+
+                                    <br>
+
+                                    {{ channel.language }}
+
+                                </div>
+
+                                <div class="col">
+
+                                    <strong>Vistas</strong>
+
+                                    <br>
+
+                                    {{ channel.views }}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-danger text-white">
+
+                    Canales relacionados
+
+                </div>
+
+                <div class="list-group list-group-flush">
+
+                    {% for item in related_channels %}
+
+                        <a
+                            href="{% url 'player' item.slug %}"
+                            class="list-group-item list-group-item-action related-card">
+
+                            {{ item.name }}
+
+                        </a>
+
+                    {% empty %}
+
+                        <div class="list-group-item">
+
+                            No existen canales relacionados.
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+
+<script>
+
+videojs("tv-player",{
+
+    autoplay:true,
+
+    controls:true,
+
+    responsive:true,
+
+    fluid:true,
+
+    liveui:true,
+
+});
+
+</script>
 
 {% endblock %}

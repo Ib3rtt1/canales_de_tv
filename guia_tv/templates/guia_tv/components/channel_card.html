@@ -1,23 +1,38 @@
-<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6 mb-4">
+<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
 
-    <div class="card bg-dark border-secondary h-100 shadow-sm">
+    <div class="card channel-card h-100 shadow border-0">
 
-        {% if channel.logo %}
+        <div class="position-relative">
 
-            <img src="{{ channel.logo.url }}"
-                 class="card-img-top p-3"
-                 alt="{{ channel.name }}"
-                 style="height:150px;object-fit:contain;">
+            {% if channel.logo %}
 
-        {% else %}
+                <img
+                    src="{{ channel.logo.url }}"
+                    class="card-img-top p-3 bg-white"
+                    alt="{{ channel.name }}"
+                    style="height:140px;object-fit:contain;">
 
-            <div class="text-center py-5">
+            {% else %}
 
-                <i class="bi bi-tv display-3"></i>
+                <div
+                    class="bg-dark d-flex align-items-center justify-content-center"
+                    style="height:140px;">
 
-            </div>
+                    <i class="bi bi-tv text-light display-4"></i>
 
-        {% endif %}
+                </div>
+
+            {% endif %}
+
+            <a
+                href="{% url 'player' channel.slug %}"
+                class="play-button">
+
+                ▶
+
+            </a>
+
+        </div>
 
         <div class="card-body">
 
@@ -29,24 +44,63 @@
 
             {% if channel.country %}
 
-                <small class="text-secondary">
+                <small class="text-muted">
 
-                    {{ channel.country }}
+                    🌍 {{ channel.country }}
 
                 </small>
 
             {% endif %}
 
+            <br>
+
+            <span class="badge bg-primary">
+
+                {{ channel.quality }}
+
+            </span>
+
+            {% if channel.status == "online" %}
+
+                <span class="badge bg-success">
+
+                    Online
+
+                </span>
+
+            {% elif channel.status == "offline" %}
+
+                <span class="badge bg-danger">
+
+                    Offline
+
+                </span>
+
+            {% else %}
+
+                <span class="badge bg-warning text-dark">
+
+                    Verificando
+
+                </span>
+
+            {% endif %}
+
         </div>
 
-        <div class="card-footer bg-transparent border-0">
+        <div class="card-footer bg-white border-0">
 
-            <a href="{% url 'player' channel.slug %}"
-               class="btn btn-danger w-100">
+            <small class="text-secondary">
 
-                Ver canal
+                👁 {{ channel.views }}
 
-            </a>
+            </small>
+
+            <span class="float-end">
+
+                👤 {{ channel.watching_now }}
+
+            </span>
 
         </div>
 
