@@ -1,179 +1,61 @@
 body{
-
-    background:#121212;
-
+    background:#212529;
     color:white;
-
 }
 
-a{
-
-    color:white;
-
-    text-decoration:none;
-
-}
-
-.card{
-
-    background:#1f1f1f;
-
-    border:none;
-
-    transition:.3s;
-
-}
-
-.card:hover{
-
-    transform:scale(1.05);
-
-}
-
-.card img{
-
-    height:180px;
-
-    object-fit:contain;
-
-    padding:20px;
-
-}
-
-.category-title{
-
-    margin-top:50px;
-
-    margin-bottom:20px;
-
-    font-weight:bold;
-
-}
-
-.video-js{
-
-    width:100%;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-}
-
-.vjs-big-play-button{
-
-    font-size:2.5em !important;
-
-}
-
-.list-group-item:hover{
-
-    background:#b71c1c !important;
-
-}
-
-.card{
-
-    border-radius:15px;
-
-}
 .channel-card{
-    transition:0.25s;
-    cursor:pointer;
+    background:#2b3035;
+    border-radius:15px;
+    transition:.25s;
 }
 
 .channel-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 12px 30px rgba(0,0,0,.35);
+    transform:translateY(-6px);
 }
 
 .channel-card img{
-    transition:.25s;
-}
-
-.channel-card:hover img{
-    transform:scale(1.05);
-}
-body{
-
-    background:#f5f5f5;
-
-}
-
-.channel-card{
-
-    transition:.25s;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-}
-
-.channel-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
-
+    height:140px;
+    object-fit:contain;
 }
 
 .play-button{
-
-    position:absolute;
-
-    top:50%;
-
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:60px;
-
-    height:60px;
-
-    border-radius:50%;
-
+    display:block;
     background:#dc3545;
+    color:white;
+    text-align:center;
+    padding:8px;
+    border-radius:8px;
+    margin-top:10px;
+    text-decoration:none;
+}
+.hero{
+
+    background:linear-gradient(
+        135deg,
+        #181818,
+        #2d2d2d
+    );
+
+    border:1px solid #333;
+
+    overflow:hidden;
+
+}
+
+.hero h1{
 
     color:white;
 
-    text-decoration:none;
+}
 
-    display:flex;
+.hero p{
 
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:26px;
-
-    opacity:0;
-
-    transition:.25s;
+    color:#cccccc;
 
 }
 
-.channel-card:hover .play-button{
+.hero .btn{
 
-    opacity:1;
-
-}
-
-.channel-card img{
-
-    transition:.3s;
-
-}
-
-.channel-card:hover img{
-
-    transform:scale(1.08);
-
-}
-
-.card-footer{
-
-    font-size:.85rem;
+    border-radius:50px;
 
 }

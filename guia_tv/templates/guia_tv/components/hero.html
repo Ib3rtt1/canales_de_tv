@@ -1,39 +1,72 @@
-<section class="container-fluid bg-black rounded-4 p-5 mb-5">
+<section class="hero rounded-4 mb-5">
 
-    <div class="row align-items-center">
+    <div class="container py-5">
 
-        <div class="col-lg-7">
+        <div class="row align-items-center">
 
-            <span class="badge bg-danger mb-3">
+            <div class="col-lg-7">
 
-                EN VIVO
+                {% if hero_channel %}
 
-            </span>
+                    <span class="badge bg-danger mb-3">
+                        EN VIVO
+                    </span>
 
-            <h1 class="display-3 fw-bold">
+                    <h1 class="display-4 fw-bold">
+                        {{ hero_channel.name }}
+                    </h1>
 
-                Miles de canales gratuitos
+                    <p class="lead">
 
-            </h1>
+                        {{ hero_channel.description|default:"Canal disponible en vivo." }}
 
-            <p class="lead text-secondary">
+                    </p>
 
-                Noticias, Deportes, Música, Cine, Series y TV Internacional.
+                    <div class="mt-4">
 
-            </p>
+                        <a href="{% url 'player' hero_channel.slug %}"
+                           class="btn btn-danger btn-lg">
 
-            <a href="#canales"
-               class="btn btn-danger btn-lg">
+                            ▶ Ver ahora
 
-                Ver canales
+                        </a>
 
-            </a>
+                    </div>
 
-        </div>
+                {% else %}
 
-        <div class="col-lg-5 text-center">
+                    <h1 class="display-4">
 
-            <i class="bi bi-tv display-1 text-danger"></i>
+                        TV Online
+
+                    </h1>
+
+                    <p>
+
+                        Miles de canales IPTV gratuitos.
+
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-lg-5 text-center">
+
+                {% if hero_channel.logo %}
+
+                    <img
+                        src="{{ hero_channel.logo.url }}"
+                        class="img-fluid"
+                        style="max-height:300px;">
+
+                {% else %}
+
+                    <i class="bi bi-broadcast display-1 text-danger"></i>
+
+                {% endif %}
+
+            </div>
 
         </div>
 

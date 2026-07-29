@@ -6,115 +6,74 @@ TV Online
 
 {% block content %}
 
+{% include "guia_tv/components/hero.html" %}
+
 <div class="container">
 
-    <h1 class="mb-4">
-        📺 TV Online
-    </h1>
+    <div class="row">
 
-    <!-- Estadísticas -->
+        <!-- ================= SIDEBAR ================= -->
 
-    <div class="row text-center mb-5">
+        <div class="col-lg-3">
 
-        <div class="col">
-
-            <h3>{{ total_channels }}</h3>
-
-            <small>Canales</small>
+            {% include "guia_tv/components/sidebar.html" %}
 
         </div>
 
-        <div class="col">
+        <!-- ================= CONTENIDO ================= -->
 
-            <h3>{{ total_categories }}</h3>
+        <div class="col-lg-9">
 
-            <small>Categorías</small>
+            <!-- Estadísticas -->
 
-        </div>
+            <div class="row text-center mb-5">
 
-        <div class="col">
+                <div class="col">
+                    <h3>{{ total_channels }}</h3>
+                    <small>Canales</small>
+                </div>
 
-            <h3>{{ total_countries }}</h3>
+                <div class="col">
+                    <h3>{{ total_categories }}</h3>
+                    <small>Categorías</small>
+                </div>
 
-            <small>Países</small>
+                <div class="col">
+                    <h3>{{ total_countries }}</h3>
+                    <small>Países</small>
+                </div>
 
-        </div>
+            </div>
 
-    </div>
+            <!-- Destacados -->
 
-    <!-- Destacados -->
-
-    <h2 class="mb-3">
-
-        ⭐ Destacados
-
-    </h2>
-
-    <div class="row">
-
-        {% for channel in featured_channels %}
-
-            {% include "guia_tv/components/channel_card.html" %}
-
-        {% empty %}
-
-            <p>No existen canales destacados.</p>
-
-        {% endfor %}
-
-    </div>
-
-    <!-- Últimos -->
-
-    <h2 class="mt-5 mb-3">
-
-        🆕 Últimos canales
-
-    </h2>
-
-    <div class="row">
-
-        {% for channel in latest_channels %}
-
-            {% include "guia_tv/components/channel_card.html" %}
-
-        {% endfor %}
-
-    </div>
-
-    <!-- Populares -->
-
-    <h2 class="mt-5 mb-3">
-
-        🔥 Más vistos
-
-    </h2>
-
-    <div class="row">
-
-        {% for channel in popular_channels %}
-
-            {% include "guia_tv/components/channel_card.html" %}
-
-        {% endfor %}
-
-    </div>
-
-    <!-- Categorías -->
-
-    {% for category in categories %}
-
-        {% if category.channels.all %}
-
-            <h2 class="mt-5">
-
-                {{ category.name }}
-
+            <h2 id="destacados" class="mb-3">
+                ⭐ Destacados
             </h2>
 
             <div class="row">
 
-                {% for channel in category.channels.all|slice:":6" %}
+                {% for channel in featured_channels %}
+
+                    {% include "guia_tv/components/channel_card.html" %}
+
+                {% empty %}
+
+                    <p>No existen canales destacados.</p>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- Últimos -->
+
+            <h2 class="mt-5 mb-3">
+                🆕 Últimos canales
+            </h2>
+
+            <div class="row">
+
+                {% for channel in latest_channels %}
 
                     {% include "guia_tv/components/channel_card.html" %}
 
@@ -122,9 +81,51 @@ TV Online
 
             </div>
 
-        {% endif %}
+            <!-- Populares -->
 
-    {% endfor %}
+            <h2 class="mt-5 mb-3">
+                🔥 Más vistos
+            </h2>
+
+            <div class="row">
+
+                {% for channel in popular_channels %}
+
+                    {% include "guia_tv/components/channel_card.html" %}
+
+                {% endfor %}
+
+            </div>
+
+            <!-- Categorías -->
+
+            {% for category in categories %}
+
+                {% if category.channels.all %}
+
+                    <h2 id="categorias" class="mt-5">
+
+                        {{ category.name }}
+
+                    </h2>
+
+                    <div class="row">
+
+                        {% for channel in category.channels.all|slice:":6" %}
+
+                            {% include "guia_tv/components/channel_card.html" %}
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
 
 </div>
 

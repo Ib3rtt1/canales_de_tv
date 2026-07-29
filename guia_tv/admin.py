@@ -4,55 +4,47 @@ from .models import (
     Category,
     Channel,
     Country,
-    Language,
+    Favorite,
     IPTVSource,
+    Language,
+    WatchHistory,
 )
-
-
-@admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
-    list_display = ("name", "iso_code")
-    search_fields = ("name",)
-
-
-@admin.register(Language)
-class LanguageAdmin(admin.ModelAdmin):
-    list_display = ("name", "code")
-    search_fields = ("name",)
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    search_fields = ("name",)
 
 
 @admin.register(Channel)
 class ChannelAdmin(admin.ModelAdmin):
+
     list_display = (
         "name",
         "country",
         "category",
-        "language",
-        "is_active",
+        "quality",
+        "status",
         "views",
+        "is_active",
+        "is_featured",
     )
 
     list_filter = (
         "country",
         "category",
-        "language",
+        "quality",
+        "status",
         "is_active",
+        "is_featured",
     )
 
     search_fields = (
         "name",
         "description",
+        "epg_id",
     )
 
     prepopulated_fields = {
         "slug": ("name",)
     }
+
+    list_per_page = 50
 
 
 @admin.register(IPTVSource)
@@ -61,7 +53,6 @@ class IPTVSourceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "enabled",
-        "auto_update",
         "priority",
         "total_channels",
         "last_update",
@@ -72,11 +63,14 @@ class IPTVSourceAdmin(admin.ModelAdmin):
         "auto_update",
     )
 
-    ordering = (
-        "priority",
-    )
-
     search_fields = (
         "name",
         "url",
     )
+
+
+admin.site.register(Category)
+admin.site.register(Country)
+admin.site.register(Language)
+admin.site.register(Favorite)
+admin.site.register(WatchHistory)

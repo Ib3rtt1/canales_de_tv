@@ -2,7 +2,11 @@ from django.urls import path
 
 from . import dashboard_views
 from guia_tv.views import home, channel_detail
-
+from guia_tv.views import (
+    home,
+    channel_detail,
+    search_channels,
+)
 
 urlpatterns = [
 
@@ -24,6 +28,12 @@ urlpatterns = [
         name="player",
     ),
 
+     path(
+        "buscar/",
+        search_channels,
+        name="search",
+        ),
+    
     path(
         "dashboard/sync/",
         dashboard_views.sync_channels,

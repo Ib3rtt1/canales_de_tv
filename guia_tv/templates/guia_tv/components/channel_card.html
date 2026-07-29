@@ -1,106 +1,23 @@
-<div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
+<div class="col-md-3 mb-4">
 
-    <div class="card channel-card h-100 shadow border-0">
+    <div class="card border border-danger border-5">
 
-        <div class="position-relative">
+        <div class="card-body text-center">
 
-            {% if channel.logo %}
+            <h2 style="color:red;">
+                ESTA ES LA NUEVA TARJETA
+            </h2>
 
-                <img
-                    src="{{ channel.logo.url }}"
-                    class="card-img-top p-3 bg-white"
-                    alt="{{ channel.name }}"
-                    style="height:140px;object-fit:contain;">
+            <h4>{{ channel.name }}</h4>
 
-            {% else %}
+            <p>{{ channel.quality }}</p>
 
-                <div
-                    class="bg-dark d-flex align-items-center justify-content-center"
-                    style="height:140px;">
+            <a href="{% url 'player' channel.slug %}"
+               class="btn btn-danger">
 
-                    <i class="bi bi-tv text-light display-4"></i>
-
-                </div>
-
-            {% endif %}
-
-            <a
-                href="{% url 'player' channel.slug %}"
-                class="play-button">
-
-                ▶
+                ▶ Ver canal
 
             </a>
-
-        </div>
-
-        <div class="card-body">
-
-            <h6 class="fw-bold">
-
-                {{ channel.name }}
-
-            </h6>
-
-            {% if channel.country %}
-
-                <small class="text-muted">
-
-                    🌍 {{ channel.country }}
-
-                </small>
-
-            {% endif %}
-
-            <br>
-
-            <span class="badge bg-primary">
-
-                {{ channel.quality }}
-
-            </span>
-
-            {% if channel.status == "online" %}
-
-                <span class="badge bg-success">
-
-                    Online
-
-                </span>
-
-            {% elif channel.status == "offline" %}
-
-                <span class="badge bg-danger">
-
-                    Offline
-
-                </span>
-
-            {% else %}
-
-                <span class="badge bg-warning text-dark">
-
-                    Verificando
-
-                </span>
-
-            {% endif %}
-
-        </div>
-
-        <div class="card-footer bg-white border-0">
-
-            <small class="text-secondary">
-
-                👁 {{ channel.views }}
-
-            </small>
-
-            <span class="float-end">
-
-                👤 {{ channel.watching_now }}
-
-            </span>
 
         </div>
 

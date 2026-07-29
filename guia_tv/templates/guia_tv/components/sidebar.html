@@ -1,0 +1,75 @@
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <h5 class="mb-3">
+
+            🔍 Buscar
+
+        </h5>
+
+        <input
+            id="sidebar-search"
+            class="form-control"
+            placeholder="Buscar canal...">
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-header">
+
+        🌍 Países
+
+    </div>
+
+    <div class="list-group list-group-flush">
+
+        <a href="{% url 'home' %}"
+        class="list-group-item {% if not selected_country and not selected_category %}active{% endif %}">
+         Todos
+        </a>
+
+        {% for country in countries %}
+            <a href="?country={{ country.id }}"
+                 class="list-group-item d-flex justify-content-between {% if selected_country == country.id|stringformat:'s' %}active{% endif %}">
+
+                {{ country.name }}
+
+                <span class="badge bg-primary">
+
+            {{ country.total }}
+
+            </span> 
+            </a>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header">
+
+        📂 Categorías
+
+    </div>
+
+    <div class="list-group list-group-flush">
+
+        {% for category in categories %}
+
+           <a href="?category={{ category.id }}"
+             class="list-group-item {% if selected_category == category.id|stringformat:'s' %}active{% endif %}">
+
+           {{ category.name }}
+
+         </a>
+
+        {% endfor %}  
+    </div>
+
+</div>
