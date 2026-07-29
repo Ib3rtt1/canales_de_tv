@@ -5,6 +5,7 @@ from .category import Category
 from .country import Country
 from .language import Language
 
+
 class Channel(models.Model):
 
     QUALITY_CHOICES = [
@@ -46,28 +47,28 @@ class Channel(models.Model):
     )
 
     country = models.ForeignKey(
-    Country,
-    on_delete=models.SET_NULL,
-    related_name="channels",
-    null=True,
-    blank=True,
+        Country,
+        on_delete=models.SET_NULL,
+        related_name="channels",
+        null=True,
+        blank=True,
     )
 
     language = models.ForeignKey(
-    Language,
-    on_delete=models.SET_NULL,
-    related_name="channels",
-    null=True,
-    blank=True,
+        Language,
+        on_delete=models.SET_NULL,
+        related_name="channels",
+        null=True,
+        blank=True,
     )
 
     category = models.ForeignKey(
-    Category,
-    on_delete=models.SET_NULL,
-    related_name="channels",
-    null=True,
-    blank=True,
-   )
+        Category,
+        on_delete=models.SET_NULL,
+        related_name="channels",
+        null=True,
+        blank=True,
+    )
 
     quality = models.CharField(
         max_length=10,
@@ -135,7 +136,24 @@ class Channel(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            # Antes: self.slug = slugify(self.name) sin más -> si dos
+            # canales generaban el mismo slug, el segundo save()
+            # lanzaba IntegrityError (slug es unique).
+            base_slug = slugify(self.name)
+            slug = base_slug
+            contador = 1
+
+            while (
+                Channel.objects
+                .filter(slug=slug)
+                .exclude(pk=self.pk)
+                .exists()
+            ):
+                contador += 1
+                slug = f"{base_slug}-{contador}"
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
     def __str__(self):

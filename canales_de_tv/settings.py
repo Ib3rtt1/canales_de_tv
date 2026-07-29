@@ -2,6 +2,7 @@
 Django settings for canales_de_tv project.
 """
 
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,15 +12,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SEGURIDAD
 # ======================================================
 
-SECRET_KEY = "django-insecure-+@gh9@t!x7x&7@yi2t9&^(%45=9$f10#7l!&j*mbk^n#t&_7z2"
+# Antes: SECRET_KEY hardcodeada y subida al repo. Muévela a una
+# variable de entorno y ROTA la clave anterior, ya que quedó expuesta.
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "clave-solo-para-desarrollo-local-cambia-esto",
+)
 
-DEBUG = True
+# Antes: DEBUG = True fijo, incluso apuntando a un host de producción.
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "canales-de-tv.onrender.com",
-]
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    "127.0.0.1,localhost",
+).split(",")
 
 
 # ======================================================
