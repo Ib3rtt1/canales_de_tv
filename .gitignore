@@ -1,0 +1,22 @@
+cat << 'EOF' > .gitignore
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Archivos de caché y compilación de Python
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+/staticfiles/
+/media/
+
+# Editor / SO
+.vscode/
+.DS_Store
+
+# Credenciales
+.env
+EOF
