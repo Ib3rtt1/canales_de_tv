@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="section-head" style="margin-top: var(--space-5);">
+        <div>
+            <span class="eyebrow"><span class="dot"></span> Panel interno</span>
+            <h2>Dashboard</h2>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="auth-alert" style="border-color: rgba(46,216,167,.4); background: rgba(46,216,167,.08); color: #9df0d6;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="metric-grid">
+        <div class="metric-card"><h3>{{ channels }}</h3><span class="eyebrow">Canales</span></div>
+        <div class="metric-card"><h3>{{ countries }}</h3><span class="eyebrow">Países</span></div>
+        <div class="metric-card"><h3>{{ categories }}</h3><span class="eyebrow">Categorías</span></div>
+    </div>
+
+    <div class="metric-grid">
+        <div class="metric-card"><h3>{{ languages }}</h3><span class="eyebrow">Idiomas</span></div>
+        <div class="metric-card"><h3>{{ sources }}</h3><span class="eyebrow">Fuentes IPTV</span></div>
+        <div class="metric-card"><h3>{{ active_channels }}</h3><span class="eyebrow">Canales activos</span></div>
+    </div>
+
+    <hr class="auth-divider">
+
+    <div class="row g-3">
+
+        <div class="col-lg-3 d-grid">
+            <a href="/admin/" class="btn-outline-signal">
+                Administración
+            </a>
+        </div>
+
+        <div class="col-lg-3 d-grid">
+            <form method="post" action="{% url 'sync_channels' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn-signal" style="width:100%;">
+                    Actualizar IPTV
+                </button>
+            </form>
+        </div>
+
+        <div class="col-lg-3 d-grid">
+            <a href="{% url 'home' %}" class="btn-ghost">
+                Ver canales
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+
+<div class="auth-wrap">
+
+    <div class="auth-card">
+
+        <span class="eyebrow"><span class="dot"></span> Acceso</span>
+
+        <h2>Iniciar sesión</h2>
+
+        {% if error %}
+            <div class="auth-alert">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="auth-field">
+                <label for="id_username">Usuario</label>
+                <input id="id_username" type="text" name="username" required>
+            </div>
+
+            <div class="auth-field">
+                <label for="id_password">Contraseña</label>
+                <input id="id_password" type="password" name="password" required>
+            </div>
+
+            <button class="btn-signal" style="width:100%;">
+                Entrar
+            </button>
+
+        </form>
+
+        <hr class="auth-divider">
+
+        <div class="auth-foot">
+            ¿No tienes cuenta?
+            <a href="{% url 'register' %}">Crear cuenta</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

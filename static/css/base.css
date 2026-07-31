@@ -1,0 +1,340 @@
+/* ============================================================
+   BASE.CSS
+   Reset ligero, tipografía base y utilidades compartidas.
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ink);
+  color: var(--frost);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Resplandor ambiental muy sutil, evita que el negro se vea plano */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 12% -8%, var(--signal-glow), transparent 40%),
+    radial-gradient(circle at 100% 8%, var(--zap-glow), transparent 35%);
+  opacity: .5;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--frost);
+}
+
+p {
+  color: var(--text-dim);
+}
+
+small, .small {
+  color: var(--text-faint);
+}
+
+hr {
+  border-color: var(--border);
+  opacity: 1;
+}
+
+::selection {
+  background: var(--signal);
+  color: #fff;
+}
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-3) transparent;
+}
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--panel-3);
+  border-radius: var(--r-pill);
+}
+
+:focus-visible {
+  outline: 2px solid var(--zap);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container, .container-fluid {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Utilidades tipográficas ---------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: var(--space-7) 0 var(--space-4);
+}
+
+.section-head h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+}
+
+.section-head .eyebrow {
+  display: block;
+  margin-bottom: var(--space-1);
+}
+
+/* ---------- Estado de canal (punto online/offline) ---------- */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.status-dot.online   { background: var(--ok); box-shadow: 0 0 0 3px rgba(46,216,167,.18); }
+.status-dot.offline  { background: var(--off); }
+.status-dot.checking { background: var(--warn); }
+
+/* ---------- Chip de número de canal, estilo guía EPG ---------- */
+
+.ch-number {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  color: var(--frost);
+  background: rgba(0, 0, 0, .55);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 2px 7px;
+  backdrop-filter: blur(4px);
+}
+
+/* ---------- Badges reutilizables ---------- */
+
+.badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--signal);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: var(--r-pill);
+}
+
+.badge-live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: pulse-dot 1.6s infinite;
+}
+
+.badge-quality {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .05em;
+  color: var(--ink);
+  background: var(--zap);
+  padding: 3px 8px;
+  border-radius: var(--r-sm);
+  font-weight: 700;
+}
+
+/* ---------- Franja de estadísticas ---------- */
+
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-7);
+  padding: var(--space-5) 0 var(--space-6);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.stat-strip .stat h3 {
+  font-size: 2.1rem;
+  color: var(--frost);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+/* ---------- Métricas de dashboard ---------- */
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.metric-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.metric-card h3 {
+  font-size: 2.2rem;
+  color: var(--frost);
+  margin-bottom: 4px;
+}
+
+@media (max-width: 768px) {
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Tarjetas de autenticación ---------- */
+
+.auth-wrap {
+  max-width: 440px;
+  margin: var(--space-8) auto;
+  padding: 0 var(--space-4);
+}
+
+.auth-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--space-6);
+}
+
+.auth-card h2 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.auth-field {
+  margin-bottom: var(--space-4);
+}
+
+.auth-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.auth-field input {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--frost);
+  padding: 11px 14px;
+  font-size: .92rem;
+  transition: border-color var(--dur-fast) var(--ease);
+}
+
+.auth-field input:focus {
+  outline: none;
+  border-color: var(--signal);
+}
+
+.auth-alert {
+  background: rgba(255, 59, 92, .1);
+  border: 1px solid rgba(255, 59, 92, .35);
+  color: #ffb3c0;
+  border-radius: var(--r-sm);
+  padding: var(--space-3) var(--space-4);
+  font-size: .85rem;
+  margin-bottom: var(--space-4);
+}
+
+.auth-alert ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.auth-divider {
+  border-color: var(--border);
+  margin: var(--space-5) 0;
+}
+
+.auth-foot {
+  text-align: center;
+  font-size: .87rem;
+  color: var(--text-dim);
+}
+
+.auth-foot a {
+  color: var(--zap);
+  font-weight: 600;
+}
+
+/* ---------- Empty states ---------- */
+
+.empty-state {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-md);
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--text-faint);
+}

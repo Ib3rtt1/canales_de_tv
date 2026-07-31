@@ -1,0 +1,225 @@
+/* ============================================================
+   NAVBAR.CSS
+   ============================================================ */
+
+.tv-navbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  background: rgba(10, 11, 16, .78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.tv-navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-3) 0;
+}
+
+.tv-navbar__collapse {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- Marca ---------- */
+
+.tv-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: .03em;
+  color: var(--frost);
+  flex-shrink: 0;
+}
+
+.tv-brand__mark {
+  width: 30px;
+  height: 30px;
+  color: var(--signal);
+  flex-shrink: 0;
+}
+
+.tv-brand__zap {
+  color: var(--zap);
+}
+
+/* ---------- Links ---------- */
+
+.tv-nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tv-nav-links a {
+  transition: color var(--dur-fast) var(--ease);
+  white-space: nowrap;
+}
+
+.tv-nav-links a:hover,
+.tv-nav-links a.active {
+  color: var(--frost);
+}
+
+/* ---------- Buscador ---------- */
+
+.tv-search {
+  position: relative;
+  margin-left: auto;
+  width: min(360px, 42vw);
+}
+
+.tv-search input {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  color: var(--frost);
+  padding: 10px 16px 10px 40px;
+  font-size: .875rem;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+
+.tv-search input::placeholder {
+  color: var(--text-faint);
+}
+
+.tv-search input:focus {
+  outline: none;
+  border-color: var(--signal);
+  background: var(--panel-2);
+}
+
+.tv-search__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+.tv-search__results {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-card);
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: var(--z-dropdown);
+  display: none;
+}
+
+.tv-search__results.is-open {
+  display: block;
+}
+
+.tv-search__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.tv-search__item:last-child {
+  border-bottom: none;
+}
+
+.tv-search__item:hover {
+  background: var(--panel-2);
+}
+
+.tv-search__thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.tv-search__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tv-search__meta {
+  min-width: 0;
+}
+
+.tv-search__meta .name {
+  font-size: .87rem;
+  font-weight: 600;
+  color: var(--frost);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tv-search__meta .country {
+  font-size: .74rem;
+  color: var(--text-faint);
+}
+
+.tv-search__empty {
+  padding: var(--space-5);
+  color: var(--text-faint);
+  font-size: .85rem;
+  text-align: center;
+}
+
+/* ---------- Usuario ---------- */
+
+.tv-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.tv-user__name {
+  font-size: .82rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ---------- Toggler móvil ---------- */
+
+.tv-navbar-toggler {
+  display: none;
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  color: var(--frost);
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

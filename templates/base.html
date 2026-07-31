@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}TV Online{% endblock %}
+    </title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap (grid y utilidades; los componentes visuales se
+         re-skinnean con nuestro propio CSS) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS propio (variables / base / navbar / hero / sidebar / cards / footer / player / animations / responsive) -->
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+{% include "guia_tv/components/navbar.html" %}
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+{% include "guia_tv/components/footer.html" %}
+
+{% block javascript %}
+{% endblock %}
+
+<script>
+
+/* Menú móvil */
+const navToggle = document.getElementById("navToggle");
+const navCollapse = document.getElementById("tvNavCollapse");
+
+if (navToggle && navCollapse) {
+    navToggle.addEventListener("click", function () {
+        const isOpen = navCollapse.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", isOpen);
+    });
+}
+
+const searchBox = document.getElementById("search-box");
+const searchResults = document.getElementById("search-results");
+
+if (searchBox && searchResults) {
+
+    let searchTimeout;
+
+    searchBox.addEventListener("input", function () {
+
+        const q = this.value.trim();
+        clearTimeout(searchTimeout);
+
+        if (q.length < 2) {
+            searchResults.classList.remove("is-open");
+            return;
+        }
+
+        searchTimeout = setTimeout(async () => {
+
+            const response = await fetch(`/buscar/?q=${encodeURIComponent(q)}`);
+            const data = await response.json();
+
+            if (!data.length) {
+                searchResults.innerHTML = `
+                    <div class="tv-search__empty">
+                        Sin resultados para "${q}"
+                    </div>`;
+                searchResults.classList.add("is-open");
+                return;
+            }
+
+            searchResults.innerHTML = data.map(channel => `
+                <a class="tv-search__item" href="/canal/${channel.slug}/">
+                    <span class="tv-search__thumb">
+                        ${
+                            channel.logo
+                                ? `<img src="${channel.logo}" alt="">`
+                                : `<i class="bi bi-tv"></i>`
+                        }
+                    </span>
+                    <span class="tv-search__meta">
+                        <span class="name">${channel.name}</span>
+                        <span class="country">${channel.country || ""}</span>
+                    </span>
+                </a>
+            `).join("");
+
+            searchResults.classList.add("is-open");
+
+        }, 200);
+
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!event.target.closest(".tv-search")) {
+            searchResults.classList.remove("is-open");
+        }
+    });
+}
+
+/* Flechas de los rieles horizontales de canales */
+document.querySelectorAll(".rail__arrow").forEach(function (btn) {
+
+    btn.addEventListener("click", function () {
+
+        const track = btn.closest(".rail").querySelector(".rail__track");
+        const amount = track.clientWidth * 0.8;
+
+        track.scrollBy({
+            left: btn.dataset.dir === "prev" ? -amount : amount,
+            behavior: "smooth"
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<div class="channel-tile">
+
+    <a
+        href="{% url 'player' channel.slug %}"
+        class="channel-tile__link"
+        aria-label="Ver {{ channel.name }}"></a>
+
+    <div class="channel-tile__media">
+
+        {% if channel.logo %}
+            <img src="{{ channel.logo.url }}" alt="{{ channel.name }}" loading="lazy">
+        {% else %}
+            <i class="bi bi-tv channel-tile__fallback"></i>
+        {% endif %}
+
+        <span class="ch-number channel-tile__num">
+            CH·{{ channel.pk|stringformat:"03d" }}
+        </span>
+
+        <span class="badge-quality channel-tile__quality">
+            {{ channel.quality }}
+        </span>
+
+        <span class="channel-tile__status">
+            <span class="status-dot {{ channel.status }}"></span>
+            {% if channel.status == "online" %}
+                En línea
+            {% elif channel.status == "offline" %}
+                Fuera de línea
+            {% else %}
+                Verificando
+            {% endif %}
+        </span>
+
+        <div class="channel-tile__play">
+            <svg viewBox="0 0 24 24" width="42" height="42" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </div>
+
+    </div>
+
+    <div class="channel-tile__body">
+
+        <div class="channel-tile__name">
+            {{ channel.name }}
+        </div>
+
+        <div class="channel-tile__meta">
+            {{ channel.country|default:"—" }} · {{ channel.category|default:"General" }}
+        </div>
+
+    </div>
+
+</div>

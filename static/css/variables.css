@@ -1,0 +1,73 @@
+/* ============================================================
+   VARIABLES.CSS
+   Sistema de tokens de diseño — paleta "estudio de transmisión"
+   inspirada en guías de canales tipo Pluto TV / Zapping.
+   ============================================================ */
+
+:root {
+
+  /* ---------- Color · base ---------- */
+  --ink:          #0A0B10;   /* fondo general */
+  --ink-soft:     #100F1A;   /* fondo de secciones alternas */
+  --panel:        #171922;   /* tarjetas / superficies */
+  --panel-2:      #21242F;   /* hover / superficie elevada */
+  --panel-3:      #2B2F3D;   /* bordes internos, thumbs de scrollbar */
+  --border:       rgba(255, 255, 255, .08);
+  --border-strong: rgba(255, 255, 255, .16);
+
+  /* ---------- Color · acentos ---------- */
+  --signal:       #FF3B5C;   /* "en vivo" — rojo señal */
+  --signal-dim:   #B4243D;
+  --signal-glow:  rgba(255, 59, 92, .35);
+
+  --zap:          #FF9F1C;   /* cálido — destacados / tendencia */
+  --zap-dim:      #C97812;
+  --zap-glow:     rgba(255, 159, 28, .3);
+
+  --ok:           #2ED8A7;   /* estado: online */
+  --warn:         #FFC94A;   /* estado: verificando */
+  --off:          #63667A;   /* estado: offline */
+
+  /* ---------- Color · texto ---------- */
+  --frost:        #EDEFF7;
+  --text-dim:     #9A9DAE;
+  --text-faint:   #63667A;
+
+  /* ---------- Tipografía ---------- */
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* ---------- Radios ---------- */
+  --r-sm:   8px;
+  --r-md:   14px;
+  --r-lg:   22px;
+  --r-pill: 999px;
+
+  /* ---------- Sombras ---------- */
+  --shadow-card:        0 10px 30px rgba(0, 0, 0, .45);
+  --shadow-card-hover:  0 18px 40px rgba(0, 0, 0, .55);
+  --shadow-glow-signal: 0 0 0 1px rgba(255, 59, 92, .4), 0 8px 24px var(--signal-glow);
+  --shadow-glow-zap:    0 0 0 1px rgba(255, 159, 28, .4), 0 8px 24px var(--zap-glow);
+
+  /* ---------- Espaciado ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* ---------- Movimiento ---------- */
+  --ease:      cubic-bezier(.22, .61, .36, 1);
+  --dur-fast:  .15s;
+  --dur:       .25s;
+  --dur-slow:  .6s;
+
+  /* ---------- Capas ---------- */
+  --z-nav:      100;
+  --z-dropdown: 200;
+  --z-overlay:  300;
+}

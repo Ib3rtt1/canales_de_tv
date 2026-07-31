@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Crear cuenta{% endblock %}
+
+{% block content %}
+
+<div class="auth-wrap">
+
+    <div class="auth-card">
+
+        <span class="eyebrow"><span class="dot"></span> Nueva cuenta</span>
+
+        <h2>Crear cuenta</h2>
+
+        {% if errors %}
+            <div class="auth-alert">
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="auth-field">
+                <label for="id_username">Usuario</label>
+                <input id="id_username" type="text" name="username" value="{{ username|default:'' }}" required>
+            </div>
+
+            <div class="auth-field">
+                <label for="id_email">Correo (opcional)</label>
+                <input id="id_email" type="email" name="email" value="{{ email|default:'' }}">
+            </div>
+
+            <div class="auth-field">
+                <label for="id_password">Contraseña</label>
+                <input id="id_password" type="password" name="password" required>
+            </div>
+
+            <div class="auth-field">
+                <label for="id_password2">Repetir contraseña</label>
+                <input id="id_password2" type="password" name="password2" required>
+            </div>
+
+            <button class="btn-signal" style="width:100%;">
+                Crear cuenta
+            </button>
+
+        </form>
+
+        <hr class="auth-divider">
+
+        <div class="auth-foot">
+            ¿Ya tienes cuenta?
+            <a href="{% url 'login' %}">Iniciar sesión</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

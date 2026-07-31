@@ -1,0 +1,59 @@
+/* ============================================================
+   FOOTER.CSS
+   ============================================================ */
+
+.tv-footer {
+  border-top: 1px solid var(--border);
+  background: var(--ink-soft);
+  padding: var(--space-7) 0 var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.tv-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.tv-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--frost);
+}
+
+.tv-footer__brand svg {
+  width: 20px;
+  height: 20px;
+  color: var(--signal);
+}
+
+.tv-footer__note {
+  font-size: .78rem;
+  color: var(--text-faint);
+  max-width: 640px;
+}
+
+.tv-footer__links {
+  display: flex;
+  gap: var(--space-4);
+  font-size: .8rem;
+  color: var(--text-faint);
+}
+
+.tv-footer__links a:hover {
+  color: var(--frost);
+}
+
+.tv-footer__bottom {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: .74rem;
+  color: var(--text-faint);
+}

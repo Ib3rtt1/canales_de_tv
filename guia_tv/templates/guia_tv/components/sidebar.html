@@ -1,0 +1,93 @@
+<div class="filter-panel">
+
+    <div class="filter-panel__head">
+
+        <h5>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            Países
+        </h5>
+
+        <span class="filter-panel__count">{{ countries|length }}</span>
+
+    </div>
+
+    <div class="filter-list">
+
+        <a
+            href="{% url 'home' %}"
+            class="filter-list__item {% if not selected_country and not selected_category %}active{% endif %}">
+
+            <svg class="filter-list__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+
+            <span class="filter-list__name">Todos los canales</span>
+
+        </a>
+
+        {% for country in countries %}
+
+            <a
+                href="?country={{ country.id }}"
+                class="filter-list__item {% if selected_country == country.id|stringformat:'s' %}active{% endif %}">
+
+                {% if country.flag %}
+                    <img src="{{ country.flag.url }}" class="filter-list__flag" alt="">
+                {% else %}
+                    <svg class="filter-list__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+                    </svg>
+                {% endif %}
+
+                <span class="filter-list__name">{{ country.name }}</span>
+
+                <span class="filter-list__badge">{{ country.total }}</span>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="filter-panel">
+
+    <div class="filter-panel__head">
+
+        <h5>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
+                <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+                <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.6"/>
+            </svg>
+            Categorías
+        </h5>
+
+        <span class="filter-panel__count">{{ categories|length }}</span>
+
+    </div>
+
+    <div class="filter-list">
+
+        {% for category in categories %}
+
+            <a
+                href="?category={{ category.id }}"
+                class="filter-list__item {% if selected_category == category.id|stringformat:'s' %}active{% endif %}">
+
+                <i class="bi {{ category.icon|default:'bi-collection-play' }} filter-list__icon"></i>
+
+                <span class="filter-list__name">{{ category.name }}</span>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+</div>

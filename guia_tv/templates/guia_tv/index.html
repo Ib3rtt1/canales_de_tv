@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}TV Online{% endblock %}
+
+{% block content %}
+
+{% include "guia_tv/components/hero.html" %}
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <div class="col-lg-3">
+
+            {% include "guia_tv/components/sidebar.html" %}
+
+        </div>
+
+        <!-- ================= CONTENIDO ================= -->
+
+        <div class="col-lg-9">
+
+            <!-- Estadísticas -->
+
+            <div class="stat-strip">
+
+                <div class="stat">
+                    <h3>{{ total_channels }}</h3>
+                    <span class="eyebrow">Canales</span>
+                </div>
+
+                <div class="stat">
+                    <h3>{{ total_categories }}</h3>
+                    <span class="eyebrow">Categorías</span>
+                </div>
+
+                <div class="stat">
+                    <h3>{{ total_countries }}</h3>
+                    <span class="eyebrow">Países</span>
+                </div>
+
+            </div>
+
+            <!-- Destacados -->
+
+            <div class="rail" id="destacados">
+
+                <div class="section-head">
+
+                    <div>
+                        <span class="eyebrow"><span class="dot"></span> En vivo ahora</span>
+                        <h2>Destacados</h2>
+                    </div>
+
+                    <div class="rail__arrows">
+                        <button class="btn-icon rail__arrow" data-dir="prev" aria-label="Anterior">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="btn-icon rail__arrow" data-dir="next" aria-label="Siguiente">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="rail__viewport">
+                    <div class="rail__track">
+
+                        {% for channel in featured_channels %}
+
+                            {% include "guia_tv/components/channel_card.html" %}
+
+                        {% empty %}
+
+                            <div class="empty-state">
+                                Todavía no hay canales destacados.
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Últimos -->
+
+            <div class="rail">
+
+                <div class="section-head">
+
+                    <div>
+                        <span class="eyebrow"><span class="dot"></span> Recién agregados</span>
+                        <h2>Últimos canales</h2>
+                    </div>
+
+                    <div class="rail__arrows">
+                        <button class="btn-icon rail__arrow" data-dir="prev" aria-label="Anterior">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="btn-icon rail__arrow" data-dir="next" aria-label="Siguiente">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="rail__viewport">
+                    <div class="rail__track">
+
+                        {% for channel in latest_channels %}
+
+                            {% include "guia_tv/components/channel_card.html" %}
+
+                        {% empty %}
+
+                            <div class="empty-state">
+                                Todavía no hay canales nuevos.
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Populares -->
+
+            <div class="rail">
+
+                <div class="section-head">
+
+                    <div>
+                        <span class="eyebrow"><span class="dot"></span> Lo más visto</span>
+                        <h2>Más vistos</h2>
+                    </div>
+
+                    <div class="rail__arrows">
+                        <button class="btn-icon rail__arrow" data-dir="prev" aria-label="Anterior">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="btn-icon rail__arrow" data-dir="next" aria-label="Siguiente">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="rail__viewport">
+                    <div class="rail__track">
+
+                        {% for channel in popular_channels %}
+
+                            {% include "guia_tv/components/channel_card.html" %}
+
+                        {% empty %}
+
+                            <div class="empty-state">
+                                Todavía no hay datos de audiencia.
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Categorías -->
+
+            <div id="categorias">
+
+                {% for category in categories %}
+
+                    {% if category.channels.all %}
+
+                        <div class="rail">
+
+                            <div class="section-head">
+
+                                <div>
+                                    <span class="eyebrow"><i class="bi {{ category.icon|default:'bi-collection-play' }}"></i> Categoría</span>
+                                    <h2>{{ category.name }}</h2>
+                                </div>
+
+                                <div class="rail__arrows">
+                                    <button class="btn-icon rail__arrow" data-dir="prev" aria-label="Anterior">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </button>
+                                    <button class="btn-icon rail__arrow" data-dir="next" aria-label="Siguiente">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="rail__viewport">
+                                <div class="rail__track">
+
+                                    {% for channel in category.channels.all|slice:":6" %}
+
+                                        {% include "guia_tv/components/channel_card.html" %}
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

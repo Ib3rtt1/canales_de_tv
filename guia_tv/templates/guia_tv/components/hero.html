@@ -1,0 +1,67 @@
+<section class="tv-hero {% if not hero_channel %}tv-hero--empty{% endif %} fade-up">
+
+    <div class="tv-hero__inner">
+
+        <div>
+
+            {% if hero_channel %}
+
+                <span class="badge-live">En vivo</span>
+
+                <h1 class="tv-hero__title">
+                    {{ hero_channel.name }}
+                </h1>
+
+                <p class="tv-hero__desc">
+                    {{ hero_channel.description|default:"Canal disponible en vivo, sin cortes ni registro." }}
+                </p>
+
+                <a href="{% url 'player' hero_channel.slug %}" class="btn-signal">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    Ver ahora
+                </a>
+
+                <div class="tv-hero__meta">
+                    <span class="ch-number">CH·{{ hero_channel.pk|stringformat:"03d" }}</span>
+                    <span>{{ hero_channel.category|default:"General" }}</span>
+                    <span>{{ total_channels }} canales · {{ total_countries }} países</span>
+                </div>
+
+            {% else %}
+
+                <span class="eyebrow"><span class="dot"></span> Guía de canales</span>
+
+                <h1 class="tv-hero__title">
+                    TV Online
+                </h1>
+
+                <p class="tv-hero__desc">
+                    Miles de canales de TV en vivo, organizados como una
+                    guía real: por país, categoría y calidad.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+        <div class="tv-hero__art">
+
+            <div class="tv-hero__art-ring"></div>
+
+            {% if hero_channel.logo %}
+
+                <img src="{{ hero_channel.logo.url }}" alt="{{ hero_channel.name }}" class="tv-hero__art-logo">
+
+            {% else %}
+
+                <div class="tv-hero__art-fallback">
+                    <i class="bi bi-broadcast"></i>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,121 @@
+/* ============================================================
+   RESPONSIVE.CSS
+   Breakpoints: >=1200 desktop (por defecto) · 992 · 768 · 576
+   ============================================================ */
+
+/* ---------- Tablets grandes / laptops chicos ---------- */
+@media (max-width: 992px) {
+
+  .tv-hero__inner {
+    grid-template-columns: 1fr;
+    padding: var(--space-6) var(--space-5);
+    text-align: center;
+  }
+
+  .tv-hero__desc {
+    margin-inline: auto;
+  }
+
+  .tv-hero__meta {
+    justify-content: center;
+  }
+
+  .tv-hero__art {
+    max-width: 220px;
+    order: -1;
+  }
+
+  .player-info__grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .player-info__logo {
+    margin-inline: auto;
+  }
+
+  .player-info__facts {
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+  }
+}
+
+/* ---------- Navegación móvil ---------- */
+@media (max-width: 991px) {
+
+  .tv-navbar-toggler {
+    display: inline-flex;
+  }
+
+  .tv-navbar__collapse {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: var(--space-3);
+    padding: var(--space-4) 0 var(--space-5);
+  }
+
+  .tv-navbar__collapse.is-open {
+    display: flex;
+  }
+
+  .tv-nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .tv-search {
+    width: 100%;
+    margin: 0;
+  }
+
+  .tv-user {
+    width: 100%;
+  }
+}
+
+/* ---------- Tablets / móviles ---------- */
+@media (max-width: 768px) {
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .channel-tile {
+    flex-basis: 168px;
+  }
+
+  .rail__arrows {
+    display: none;
+  }
+
+  .rail__viewport::before,
+  .rail__viewport::after {
+    width: 20px;
+  }
+
+  .filter-panel {
+    margin-bottom: var(--space-4);
+  }
+}
+
+/* ---------- Móviles chicos ---------- */
+@media (max-width: 576px) {
+
+  .tv-hero__title {
+    font-size: 2.1rem;
+  }
+
+  .player-info__facts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tv-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

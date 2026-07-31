@@ -1,0 +1,124 @@
+/* ============================================================
+   SIDEBAR.CSS
+   Panel de filtros (países / categorías)
+   ============================================================ */
+
+.filter-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  margin-bottom: var(--space-5);
+  overflow: hidden;
+}
+
+.filter-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.filter-panel__head h5 {
+  font-size: .85rem;
+  letter-spacing: .08em;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-panel__head h5 svg {
+  width: 15px;
+  height: 15px;
+  color: var(--zap);
+}
+
+.filter-panel__count {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  color: var(--text-faint);
+}
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-2);
+}
+
+.filter-list__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-size: .88rem;
+  color: var(--text-dim);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.filter-list__item:hover {
+  background: var(--panel-2);
+  color: var(--frost);
+}
+
+.filter-list__item.active {
+  background: linear-gradient(90deg, rgba(255,59,92,.15), transparent);
+  color: var(--frost);
+  box-shadow: inset 2px 0 0 var(--signal);
+}
+
+.filter-list__flag {
+  width: 20px;
+  height: 14px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+  background: var(--panel-2);
+}
+
+.filter-list__icon {
+  width: 16px;
+  height: 16px;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  color: var(--text-faint);
+}
+
+.filter-list__item.active .filter-list__icon {
+  color: var(--signal);
+}
+
+.filter-list__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filter-list__badge {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  color: var(--text-faint);
+  background: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 2px 8px;
+  flex-shrink: 0;
+}
+
+.filter-list__item.active .filter-list__badge {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.sidebar-cta {
+  border-radius: var(--r-md);
+  border: 1px dashed var(--border-strong);
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--text-faint);
+  font-size: .82rem;
+}

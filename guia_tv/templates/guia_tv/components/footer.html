@@ -1,0 +1,47 @@
+<footer class="tv-footer">
+
+    <div class="container">
+
+        <div class="tv-footer__inner">
+
+            <div>
+
+                <div class="tv-footer__brand">
+
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="17" r="2.3" fill="currentColor"/>
+                        <path d="M7.5 13.4a6.5 6.5 0 0 1 9 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        <path d="M4.3 10a11 11 0 0 1 15.4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+                    </svg>
+
+                    TV Online
+
+                </div>
+
+                <p class="tv-footer__note">
+                    Guía de canales en vivo. Este proyecto usa una base de
+                    datos de prueba con fines de demostración: no transmite
+                    contenido propio ni representa a los canales listados.
+                </p>
+
+            </div>
+
+            <div class="tv-footer__links">
+                <a href="{% url 'home' %}#destacados">Destacados</a>
+                <a href="{% url 'home' %}#categorias">Categorías</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">Cerrar sesión</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Iniciar sesión</a>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="tv-footer__bottom">
+            TV Online &copy; 2026 — base de datos de prueba, no es un proyecto real. Todos los derechos reservados.
+        </div>
+
+    </div>
+
+</footer>
