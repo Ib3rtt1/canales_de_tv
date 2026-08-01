@@ -80,3 +80,24 @@ class ChannelRepository:
             .active()
             .filter(name__icontains=text)
         )
+
+    @staticmethod
+    def publishable() -> QuerySet:
+        """
+        Canales activos Y con licencia aprobada. Esta es la lista que
+        debería usarse en cualquier vista pública: is_active=True por sí
+        solo NO implica que el canal esté autorizado a transmitirse.
+        """
+        return (
+            ChannelRepository
+            .active()
+            .filter(license_status__in=["official", "public_domain"])
+        )
+
+    @staticmethod
+    def exists_with_url(stream_url: str) -> bool:
+        return Channel.objects.filter(stream_url=stream_url).exists()
+
+    @staticmethod
+    def create(**kwargs) -> Channel:
+        return Channel.objects.create(**kwargs)

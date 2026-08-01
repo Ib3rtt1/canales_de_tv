@@ -1,0 +1,50 @@
+[
+    {
+        "name": "TVN",
+        "country": "Chile",
+        "language": "Español",
+        "category": "General",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": true
+    },
+    {
+        "name": "24 Horas",
+        "country": "Chile",
+        "language": "Español",
+        "category": "Noticias",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": true
+    },
+    {
+        "name": "Mega",
+        "country": "Chile",
+        "language": "Español",
+        "category": "General",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": true
+    },
+    {
+        "name": "Chilevisión",
+        "country": "Chile",
+        "language": "Español",
+        "category": "General",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": true
+    },
+    {
+        "name": "Canal 13",
+        "country": "Chile",
+        "language": "Español",
+        "category": "General",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": true
+    },
+    {
+        "name": "NASA TV",
+        "country": "Estados Unidos",
+        "language": "Inglés",
+        "category": "Ciencia",
+        "stream": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        "featured": false
+    }
+]

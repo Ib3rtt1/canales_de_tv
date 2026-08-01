@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 
+from guia_tv.domain.value_objects.license_status import LicenseStatus
+
 from .category import Category
 from .country import Country
 from .language import Language
@@ -19,6 +21,8 @@ class Channel(models.Model):
         ("FHD", "Full HD"),
         ("4K", "4K"),
     ]
+
+    LICENSE_CHOICES = LicenseStatus.choices()
 
     STATUS_CHOICES = [
         ("checking", "Verificando"),
@@ -194,6 +198,25 @@ class Channel(models.Model):
     )
 
     # ==========================================
+    # DERECHOS / LICENCIA
+    # ==========================================
+
+    license_status = models.CharField(
+        max_length=20,
+        choices=LICENSE_CHOICES,
+        default=LicenseStatus.PENDING.value,
+        help_text=(
+            "Solo los canales 'official' o 'public_domain' deberían "
+            "quedar visibles públicamente."
+        ),
+    )
+
+    license_note = models.TextField(
+        blank=True,
+        help_text="De dónde sale la autorización para transmitir este canal.",
+    )
+
+    # ==========================================
     # VISIBILIDAD
     # ==========================================
 
@@ -264,6 +287,8 @@ class Channel(models.Model):
             models.Index(fields=["is_featured"]),
 
             models.Index(fields=["tvg_id"]),
+
+            models.Index(fields=["license_status"]),
 
         ]
 

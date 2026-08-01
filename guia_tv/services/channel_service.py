@@ -1,4 +1,4 @@
-from guia_tv.models import Channel
+from guia_tv.repositories.channel_repository import ChannelRepository
 
 
 class ChannelService:
@@ -14,15 +14,12 @@ class ChannelService:
         featured=None,
     ):
 
-        queryset = (
-            Channel.objects
-            .filter(is_active=True)
-            .select_related(
-                "country",
-                "category",
-                "language",
-            )
-        )
+        # Antes: partía de Channel.objects.filter(is_active=True), que
+        # no tiene en cuenta la licencia -> un canal "pending" o
+        # "rejected" podía quedar visible en el sitio público con solo
+        # is_active=True. Ahora arranca desde el repositorio, que ya
+        # filtra por license_status aprobado.
+        queryset = ChannelRepository.publishable()
 
         if country:
             queryset = queryset.filter(country_id=country)

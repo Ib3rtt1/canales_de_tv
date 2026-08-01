@@ -37,3 +37,7 @@ class Channel:
     views: int
 
     watching_now: int
+
+    license_status: str
+
+    license_note: str

@@ -2,6 +2,7 @@ from django.db.models import F
 from django.shortcuts import get_object_or_404, render
 
 from ..models import Channel
+from ..repositories.channel_repository import ChannelRepository
 
 
 def channel_detail(request, slug):
@@ -9,14 +10,12 @@ def channel_detail(request, slug):
     Reproductor de un canal IPTV.
     """
 
+    # Antes: is_active=True, sin mirar la licencia -> se podía reproducir
+    # (y contar vistas de) un canal "pending"/"rejected" con solo
+    # conocer su slug.
     channel = get_object_or_404(
-        Channel.objects.select_related(
-            "country",
-            "category",
-            "language",
-        ),
+        ChannelRepository.publishable(),
         slug=slug,
-        is_active=True,
     )
 
     # Incrementar contador de vistas
@@ -28,16 +27,9 @@ def channel_detail(request, slug):
 
     # Canales relacionados
     related_channels = (
-        Channel.objects.filter(
-            category=channel.category,
-            is_active=True,
-        )
+        ChannelRepository.publishable()
+        .filter(category=channel.category)
         .exclude(pk=channel.pk)
-        .select_related(
-            "country",
-            "category",
-            "language",
-        )
         .order_by("-views")[:10]
     )
 

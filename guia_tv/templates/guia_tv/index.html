@@ -224,3 +224,29 @@
 </div>
 
 {% endblock %}
+
+{% block javascript %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Manejo del desplazamiento horizontal de los rieles (rails)
+    const railArrows = document.querySelectorAll('.rail__arrow');
+
+    railArrows.forEach(arrow => {
+        arrow.addEventListener('click', function() {
+            const rail = this.closest('.rail');
+            const viewport = rail.querySelector('.rail__viewport');
+            const direction = this.getAttribute('data-dir');
+            
+            // Ancho de desplazamiento (aproximadamente el ancho de 2 o 3 tarjetas)
+            const scrollAmount = viewport.clientWidth * 0.75;
+
+            if (direction === 'next') {
+                viewport.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            } else if (direction === 'prev') {
+                viewport.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

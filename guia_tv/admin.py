@@ -20,6 +20,7 @@ class ChannelAdmin(admin.ModelAdmin):
         "category",
         "quality",
         "status",
+        "license_status",
         "views",
         "is_active",
         "is_featured",
@@ -30,6 +31,7 @@ class ChannelAdmin(admin.ModelAdmin):
         "category",
         "quality",
         "status",
+        "license_status",
         "is_active",
         "is_featured",
     )
@@ -53,6 +55,7 @@ class IPTVSourceAdmin(admin.ModelAdmin):
     list_display = (
         "name",
         "enabled",
+        "license_status",
         "priority",
         "total_channels",
         "last_update",
@@ -60,6 +63,7 @@ class IPTVSourceAdmin(admin.ModelAdmin):
 
     list_filter = (
         "enabled",
+        "license_status",
         "auto_update",
     )
 

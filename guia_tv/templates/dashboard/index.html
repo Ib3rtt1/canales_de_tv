@@ -33,6 +33,15 @@
         <div class="metric-card"><h3>{{ active_channels }}</h3><span class="eyebrow">Canales activos</span></div>
     </div>
 
+    {% if pending_channels or pending_sources %}
+        <div class="auth-alert" style="border-color: rgba(255,196,0,.4); background: rgba(255,196,0,.08); color: #ffd873; margin-top: var(--space-4);">
+            {{ pending_channels }} canal(es) y {{ pending_sources }} fuente(s)
+            están en estado "pendiente de revisión" y no se muestran
+            públicamente hasta que se les asigne una licencia. Revisalos
+            desde la administración.
+        </div>
+    {% endif %}
+
     <hr class="auth-divider">
 
     <div class="row g-3">
@@ -50,6 +59,12 @@
                     Actualizar IPTV
                 </button>
             </form>
+        </div>
+
+        <div class="col-lg-3 d-grid">
+            <a href="{% url 'add_channel' %}" class="btn-signal" style="width:100%; display:block; text-align:center;">
+                Agregar canal
+            </a>
         </div>
 
         <div class="col-lg-3 d-grid">

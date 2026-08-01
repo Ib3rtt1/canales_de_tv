@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+from guia_tv.domain.value_objects.license_status import LicenseStatus
 
 
 class IPTVSource(models.Model):
+
+    LICENSE_CHOICES = LicenseStatus.choices()
 
     name = models.CharField(
         max_length=150
@@ -36,6 +39,26 @@ class IPTVSource(models.Model):
 
     created_at = models.DateTimeField(
         auto_now_add=True
+    )
+
+    # ==========================================
+    # DERECHOS / LICENCIA
+    # ==========================================
+
+    license_status = models.CharField(
+        max_length=20,
+        choices=LICENSE_CHOICES,
+        default=LicenseStatus.PENDING.value,
+        help_text=(
+            "Una fuente nueva arranca en 'pending' y NO se sincroniza "
+            "automáticamente hasta que alguien confirme que sus canales "
+            "están autorizados (official/public_domain)."
+        ),
+    )
+
+    license_note = models.TextField(
+        blank=True,
+        help_text="Justificación de por qué esta fuente es confiable.",
     )
 
     class Meta:

@@ -35,17 +35,15 @@
 
                 <video
                     id="tv-player"
-                    class="video-js vjs-big-play-centered"
+                    class="video-js vjs-big-play-centered vjs-theme-sea"
                     controls
-                    autoplay
                     preload="auto"
                     width="100%"
                     height="550">
-
+                   <!-- Se cambia la URL directa por la ruta apuntada al proxy de Django -->
                     <source
-                        src="{{ channel.stream_url }}"
+                        src="{% url 'stream_proxy' channel.id %}"
                         type="application/x-mpegURL">
-
                 </video>
 
             </div>
@@ -182,19 +180,50 @@
 {% endblock %}
 
 {% block javascript %}
-
 <script src="https://vjs.zencdn.net/8.23.4/video.min.js"></script>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const player = videojs("tv-player", {
+        autoplay: 'muted', // 'muted' asegura que los navegadores modernos permitan el autoplay
+        controls: true,
+        responsive: true,
+        fluid: true,
+        liveui: true,
+        html5: {
+            vhs: {
+                overrideNative: true,  // Forzar uso del reproductor HLS de Video.js en navegadores no Safari
+                allowSeeksWithinUnsetLiveDuration: true,
+                handlePartialData: true
+            },
+            nativeAudioTracks: false,
+            nativeVideoTracks: false
+        }
+    });
 
-videojs("tv-player", {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    liveui: true,
+    // Manejo de errores de red o CORS
+    player.on('error', function() {
+        const error = player.error();
+        console.warn("Error de transmisión detectado:", error);
+
+        // Crear una superposición con aviso claro en vez de una pantalla rota
+        const errorDisplay = player.errorDisplay;
+        if (errorDisplay) {
+            errorDisplay.fillWith(
+                'El canal no está respondiendo o requiere acceso directo (Bloqueo CORS/Offline).'
+            );
+        }
+    });
+
+    // Manejar fallos de autoplay bloqueado por el navegador
+    const promise = player.play();
+    if (promise !== undefined) {
+        promise.catch(function(error) {
+            console.log("Autoplay bloqueado por el navegador. El usuario debe interactuar primero.");
+            player.muted(true);
+            player.play();
+        });
+    }
 });
-
 </script>
-
 {% endblock %}

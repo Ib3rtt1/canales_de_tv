@@ -1,3 +1,9 @@
+# DEPRECADO: reemplazado por
+# guia_tv.infrastructure.persistence.channel_mapper.ChannelMapper
+# + guia_tv.application.use_cases.import_playlist.ImportPlaylistUseCase.
+# Este servicio matcheaba canales solo por `name` global (colisiona entre
+# fuentes distintas) y no aplicaba ninguna política de licencias.
+
 from guia_tv.models import (
     Category,
     Channel,

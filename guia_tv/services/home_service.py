@@ -2,10 +2,10 @@ from django.db.models import Count, Prefetch
 
 from guia_tv.models import (
     Category,
-    Channel,
     Country,
 )
 
+from guia_tv.repositories.channel_repository import ChannelRepository
 from guia_tv.services.channel_service import ChannelService
 
 
@@ -46,14 +46,10 @@ class HomeService:
             .prefetch_related(
                 Prefetch(
                     "channels",
-                    queryset=Channel.objects.filter(
-                        is_active=True
-                    )
-                    .select_related(
-                        "country",
-                        "category",
-                        "language",
-                    )
+                    # Antes: Channel.objects.filter(is_active=True), sin
+                    # filtrar por licencia -> las categorías del home
+                    # podían listar canales "pending"/"rejected".
+                    queryset=ChannelRepository.publishable()
                     .order_by("name")
                 )
             )

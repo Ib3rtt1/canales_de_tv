@@ -1,3 +1,10 @@
+# DEPRECADO: reemplazado por
+# guia_tv.application.use_cases.import_playlist.SyncAllSourcesUseCase
+# (respeta license_status; este archivo no lo hacía). Se deja sin borrar
+# por si algo externo todavía lo importa, pero dashboard_views.py y
+# management/commands/sync_iptv.py ya NO lo usan. Se puede eliminar una
+# vez confirmado que nada más lo referencia.
+
 import logging
 
 from guia_tv.models import IPTVSource
