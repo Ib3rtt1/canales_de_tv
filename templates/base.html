@@ -89,30 +89,56 @@ if (searchBox && searchResults) {
             const response = await fetch(`/buscar/?q=${encodeURIComponent(q)}`);
             const data = await response.json();
 
+            // Los nombres/países vienen de playlists M3U de terceros
+            // (no confiables), así que se construyen los nodos con
+            // textContent en vez de insertar HTML crudo -> evita XSS.
+            searchResults.innerHTML = "";
+
             if (!data.length) {
-                searchResults.innerHTML = `
-                    <div class="tv-search__empty">
-                        Sin resultados para "${q}"
-                    </div>`;
+                const empty = document.createElement("div");
+                empty.className = "tv-search__empty";
+                empty.textContent = `Sin resultados para "${q}"`;
+                searchResults.appendChild(empty);
                 searchResults.classList.add("is-open");
                 return;
             }
 
-            searchResults.innerHTML = data.map(channel => `
-                <a class="tv-search__item" href="/canal/${channel.slug}/">
-                    <span class="tv-search__thumb">
-                        ${
-                            channel.logo
-                                ? `<img src="${channel.logo}" alt="">`
-                                : `<i class="bi bi-tv"></i>`
-                        }
-                    </span>
-                    <span class="tv-search__meta">
-                        <span class="name">${channel.name}</span>
-                        <span class="country">${channel.country || ""}</span>
-                    </span>
-                </a>
-            `).join("");
+            data.forEach((channel) => {
+                const item = document.createElement("a");
+                item.className = "tv-search__item";
+                // channel.slug lo genera Django (slugify) y es seguro
+                // para ir en la URL, pero igual se codifica por si acaso.
+                item.href = `/canal/${encodeURIComponent(channel.slug)}/`;
+
+                const thumb = document.createElement("span");
+                thumb.className = "tv-search__thumb";
+
+                if (channel.logo) {
+                    const img = document.createElement("img");
+                    img.src = channel.logo;
+                    img.alt = "";
+                    thumb.appendChild(img);
+                } else {
+                    const icon = document.createElement("i");
+                    icon.className = "bi bi-tv";
+                    thumb.appendChild(icon);
+                }
+
+                const meta = document.createElement("span");
+                meta.className = "tv-search__meta";
+
+                const name = document.createElement("span");
+                name.className = "name";
+                name.textContent = channel.name;
+
+                const country = document.createElement("span");
+                country.className = "country";
+                country.textContent = channel.country || "";
+
+                meta.append(name, country);
+                item.append(thumb, meta);
+                searchResults.appendChild(item);
+            });
 
             searchResults.classList.add("is-open");
 

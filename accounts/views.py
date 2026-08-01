@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 
 
@@ -58,6 +60,20 @@ def register_view(request):
 
         elif User.objects.filter(username=username).exists():
             errors.append("Ese nombre de usuario ya existe.")
+
+        # Antes: create_user() se llamaba directo con la contraseña tal
+        # cual, sin pasar por validate_password() -> los validadores
+        # configurados en AUTH_PASSWORD_VALIDATORS (longitud mínima,
+        # contraseñas comunes, similitud con el usuario, etc.) nunca se
+        # aplicaban en el registro.
+        if not errors and password:
+            try:
+                validate_password(
+                    password,
+                    user=User(username=username, email=email),
+                )
+            except ValidationError as exc:
+                errors.extend(exc.messages)
 
         if errors:
             return render(

@@ -5,23 +5,74 @@ Django settings for canales_de_tv project.
 import os
 from pathlib import Path
 
-
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carga variables desde un archivo .env en la raíz del proyecto (no se
+# versiona, ver .env.example para la lista de variables esperadas).
+# Si no existe .env (p. ej. en producción, donde las variables ya están
+# en el entorno del proceso), load_dotenv() simplemente no hace nada.
+load_dotenv(BASE_DIR / ".env")
+
+
+def env_bool(name, default=False):
+    return os.environ.get(name, str(default)).strip().lower() in (
+        "1", "true", "yes", "on",
+    )
+
+
+def env_list(name, default=""):
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in raw.split(",") if item.strip()]
 
 
 # ======================================================
 # SEGURIDAD
 # ======================================================
 
-SECRET_KEY = "django-insecure-desarrollo"
+# Antes: SECRET_KEY hardcodeada en el repo y DEBUG=True fijo -> cualquiera
+# con el código tenía la clave de firma de sesiones/CSRF, y un despliegue
+# a producción heredaba DEBUG=True (páginas de error con stack trace y
+# variables de entorno visibles) a menos que alguien lo recordara cambiar
+# a mano en cada lugar. Ahora todo sale de variables de entorno.
 
-# Por defecto False (seguro). En tu .env local ponla en True para que
-# runserver sirva los estáticos automáticamente durante el desarrollo.
-DEBUG =  True
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-ALLOWED_HOSTS = []
+DEBUG = env_bool("DJANGO_DEBUG", default=False)
+
+if not SECRET_KEY:
+    if DEBUG:
+        # Solo para desarrollo local sin .env configurado. Nunca usar
+        # esta clave en producción (DEBUG=False la rechaza más abajo).
+        SECRET_KEY = "django-insecure-desarrollo-local-no-usar-en-produccion"
+    else:
+        raise RuntimeError(
+            "DJANGO_SECRET_KEY no está definida. Configúrala en tu .env "
+            "o en las variables de entorno del servidor (ver .env.example)."
+        )
+
+ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS")
+
+# Necesario en Django 4+ para aceptar POST (login, dashboard, etc.)
+# detrás de un proxy/CDN como Render, con esquema https:// incluido.
+CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
+
+if not DEBUG:
+    # Render (y proveedores similares) terminan TLS en su proxy y
+    # reenvían por HTTP interno; sin esto, request.is_secure() siempre
+    # da False y SECURE_SSL_REDIRECT provoca un loop de redirects.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+    SECURE_HSTS_SECONDS = 60 * 60 * 24 * 7  # 1 semana; subir tras confirmar que todo sirve por HTTPS
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+    X_FRAME_OPTIONS = "DENY"
 
 
 # ======================================================

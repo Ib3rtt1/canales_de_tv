@@ -11,9 +11,11 @@ from .program import Program
 __all__ = [
     "Category",
     "Channel",
+    "ChannelStream",
     "Country",
     "Favorite",
     "IPTVSource",
     "Language",
+    "Program",
     "WatchHistory",
 ]
