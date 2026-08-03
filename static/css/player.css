@@ -13,6 +13,23 @@
 .player-frame .video-js {
   width: 100%;
 }
+.player-controls{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+
+.player-controls a{
+
+    flex:1;
+
+}
 
 /* Recoloreamos el botón de play grande de video.js al acento de la marca */
 .vjs-big-play-button {
@@ -213,4 +230,17 @@
   font-family: var(--font-mono);
   font-size: .68rem;
   color: var(--text-faint);
+}
+.up-next__item.active{
+    background:#0d6efd;
+    color:#fff;
+}
+
+.up-next__item.active .name,
+.up-next__item.active .num{
+    color:white;
+}
+
+.up-next__item.active img{
+    border:2px solid white;
 }

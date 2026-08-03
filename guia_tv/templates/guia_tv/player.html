@@ -47,7 +47,23 @@
                 </video>
 
             </div>
+            <div class="player-controls mt-3 mb-4">
+                {% if previous_channel %}
+                <a
+                    href="{% url 'player' previous_channel.slug %}"
+                    class="btn btn-outline-secondary">
+                    ⬅ Canal anterior
+                </a>
+                {% endif %}
+                {% if next_channel %} 
+                <a
+                     href="{% url 'player' next_channel.slug %}"
+                     class="btn btn-primary">
+                     Canal siguiente ➡
+                </a>
+                {% endif %}
 
+            </div>
             <!-- Información -->
 
             <div class="player-info">
@@ -129,18 +145,26 @@
             <div class="up-next">
 
                 <div class="up-next__head">
+                    
                     <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
                         <path d="M4 6h16M4 12h10M4 18h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
                         <path d="M19 15l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Canales relacionados
+                    Lista de canales
+                </div>
+                 <div class="p-3">
+                   <input
+                    type="text"
+                     id="channel-search"
+                    class="form-control"
+                    placeholder="🔍 Buscar canal">
                 </div>
 
                 <div class="up-next__list">
 
-                    {% for item in related_channels %}
+                    {% for item in all_channels %}
 
-                        <a href="{% url 'player' item.slug %}" class="up-next__item">
+                        <a   href="{% url 'player' item.slug %}"   class="up-next__item {% if item.id == channel.id %}active{% endif %}">
 
                             <span class="up-next__thumb">
                                 {% if item.logo %}
@@ -184,15 +208,16 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
     const player = videojs("tv-player", {
-        autoplay: 'muted', // 'muted' asegura que los navegadores modernos permitan el autoplay
+        autoplay: 'muted',
         controls: true,
         responsive: true,
         fluid: true,
         liveui: true,
         html5: {
             vhs: {
-                overrideNative: true,  // Forzar uso del reproductor HLS de Video.js en navegadores no Safari
+                overrideNative: true,
                 allowSeeksWithinUnsetLiveDuration: true,
                 handlePartialData: true
             },
@@ -201,29 +226,67 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Manejo de errores de red o CORS
-    player.on('error', function() {
-        const error = player.error();
-        console.warn("Error de transmisión detectado:", error);
+    player.on('error', function () {
 
-        // Crear una superposición con aviso claro en vez de una pantalla rota
+        const error = player.error();
+
+        console.warn(error);
+
         const errorDisplay = player.errorDisplay;
+
         if (errorDisplay) {
+
             errorDisplay.fillWith(
-                'El canal no está respondiendo o requiere acceso directo (Bloqueo CORS/Offline).'
+                'El canal no está respondiendo.'
             );
+
         }
+
     });
 
-    // Manejar fallos de autoplay bloqueado por el navegador
     const promise = player.play();
+
     if (promise !== undefined) {
-        promise.catch(function(error) {
-            console.log("Autoplay bloqueado por el navegador. El usuario debe interactuar primero.");
+
+        promise.catch(function () {
+
             player.muted(true);
+
             player.play();
+
         });
+
     }
+
+    // =============================
+    // BUSCADOR DE CANALES
+    // =============================
+
+    const search = document.getElementById("channel-search");
+
+    if (search) {
+
+        search.addEventListener("keyup", function () {
+
+            const value = this.value.toLowerCase();
+
+            document
+                .querySelectorAll(".up-next__item")
+                .forEach(function (item) {
+
+                    const texto = item.innerText.toLowerCase();
+
+                    item.style.display =
+                        texto.includes(value)
+                            ? ""
+                            : "none";
+
+                });
+
+        });
+
+    }
+
 });
 </script>
 {% endblock %}
