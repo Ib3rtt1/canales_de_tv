@@ -6,14 +6,13 @@ from guia_tv.domain.value_objects.license_status import LicenseStatus
 from .category import Category
 from .country import Country
 from .language import Language
-from .iptv_source import IPTVSource
 
 
 class Channel(models.Model):
 
-    # ==========================================
+    # ==================================================
     # OPCIONES
-    # ==========================================
+    # ==================================================
 
     QUALITY_CHOICES = [
         ("SD", "SD"),
@@ -38,74 +37,97 @@ class Channel(models.Model):
         ("OTHER", "Otro"),
     ]
 
-    # ==========================================
-    # INFORMACIÓN GENERAL
-    # ==========================================
+    SOURCE_CHOICES = [
+        ("iptv", "IPTV"),
+        ("youtube", "YouTube"),
+        ("twitch", "Twitch"),
+    ]
 
-    name = models.CharField(
-        max_length=200
-    )
+    # ==================================================
+    # INFORMACIÓN GENERAL
+    # ==================================================
+
+    name = models.CharField(max_length=200)
 
     slug = models.SlugField(
         unique=True,
-        blank=True
+        blank=True,
     )
 
-    description = models.TextField(
-        blank=True
+    description = models.TextField(blank=True)
+
+    website = models.URLField(blank=True)
+
+    # ==================================================
+    # ORIGEN DEL CANAL
+    # ==================================================
+
+    source_type = models.CharField(
+        max_length=20,
+        choices=SOURCE_CHOICES,
+        default="iptv",
     )
 
-    website = models.URLField(
-        blank=True
-    )
-
-    # ==========================================
+    # ==================================================
     # IPTV
-    # ==========================================
+    # ==================================================
 
     stream_url = models.URLField(
-        max_length=1000
+        max_length=1000,
+        blank=True,
     )
 
     stream_type = models.CharField(
         max_length=20,
         choices=STREAM_TYPES,
-        default="HLS"
+        default="HLS",
     )
 
     tvg_id = models.CharField(
         max_length=255,
         blank=True,
-        db_index=True
+        db_index=True,
     )
 
     tvg_name = models.CharField(
         max_length=255,
-        blank=True
+        blank=True,
     )
 
     epg_id = models.CharField(
         max_length=255,
-        blank=True
+        blank=True,
     )
 
-    # ==========================================
+    # ==================================================
+    # YOUTUBE
+    # ==================================================
+
+    youtube_video_id = models.CharField(
+        max_length=100,
+        blank=True,
+    )
+
+    youtube_channel = models.CharField(
+        max_length=200,
+        blank=True,
+    )
+
+    # ==================================================
     # IMÁGENES
-    # ==========================================
+    # ==================================================
 
     logo = models.ImageField(
         upload_to="channels/logos/",
         blank=True,
-        null=True
+        null=True,
     )
 
-    logo_url = models.URLField(
-        blank=True
-    )
+    logo_url = models.URLField(blank=True)
 
-    # ==========================================
+    # ==================================================
     # RELACIONES
-    # ==========================================
+    # ==================================================
 
     country = models.ForeignKey(
         Country,
@@ -131,134 +153,100 @@ class Channel(models.Model):
         blank=True,
     )
 
-    source = models.ForeignKey(
-        IPTVSource,
-        on_delete=models.SET_NULL,
-        related_name="channels",
-        null=True,
-        blank=True,
-    )
-
-    # ==========================================
+    # ==================================================
     # CALIDAD
-    # ==========================================
+    # ==================================================
 
     quality = models.CharField(
         max_length=10,
         choices=QUALITY_CHOICES,
-        default="HD"
+        default="HD",
     )
 
     resolution = models.CharField(
         max_length=30,
-        blank=True
+        blank=True,
     )
 
     bitrate = models.PositiveIntegerField(
         default=0,
-        help_text="Bitrate en kbps"
     )
 
     video_codec = models.CharField(
         max_length=50,
-        blank=True
+        blank=True,
     )
 
     audio_codec = models.CharField(
         max_length=50,
-        blank=True
+        blank=True,
     )
 
-    # ==========================================
+    # ==================================================
     # ESTADO
-    # ==========================================
+    # ==================================================
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default="checking"
+        default="checking",
     )
 
-    is_verified = models.BooleanField(
-        default=False
-    )
+    is_verified = models.BooleanField(default=False)
 
     last_status_code = models.PositiveSmallIntegerField(
         null=True,
-        blank=True
+        blank=True,
     )
 
-    response_time = models.FloatField(
-        default=0
-    )
+    response_time = models.FloatField(default=0)
 
     last_checked = models.DateTimeField(
         blank=True,
-        null=True
+        null=True,
     )
 
-    # ==========================================
-    # DERECHOS / LICENCIA
-    # ==========================================
+    # ==================================================
+    # LICENCIA
+    # ==================================================
 
     license_status = models.CharField(
         max_length=20,
         choices=LICENSE_CHOICES,
         default=LicenseStatus.PENDING.value,
-        help_text=(
-            "Solo los canales 'official' o 'public_domain' deberían "
-            "quedar visibles públicamente."
-        ),
     )
 
-    license_note = models.TextField(
-        blank=True,
-        help_text="De dónde sale la autorización para transmitir este canal.",
-    )
+    license_note = models.TextField(blank=True)
 
-    # ==========================================
+    # ==================================================
     # VISIBILIDAD
-    # ==========================================
+    # ==================================================
 
-    is_active = models.BooleanField(
-        default=True
-    )
+    is_active = models.BooleanField(default=True)
 
-    is_public = models.BooleanField(
-        default=True
-    )
+    is_public = models.BooleanField(default=True)
 
-    is_featured = models.BooleanField(
-        default=False
-    )
+    is_featured = models.BooleanField(default=False)
 
-    # ==========================================
+    # ==================================================
     # ESTADÍSTICAS
-    # ==========================================
+    # ==================================================
 
-    views = models.PositiveIntegerField(
-        default=0
-    )
+    views = models.PositiveIntegerField(default=0)
 
-    watching_now = models.PositiveIntegerField(
-        default=0
-    )
+    watching_now = models.PositiveIntegerField(default=0)
 
-    # ==========================================
+    # ==================================================
     # FECHAS
-    # ==========================================
+    # ==================================================
 
-    created_at = models.DateTimeField(
-        auto_now_add=True
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    updated_at = models.DateTimeField(
-        auto_now=True
-    )
+    updated_at = models.DateTimeField(auto_now=True)
 
-    # ==========================================
+    # ==================================================
     # META
-    # ==========================================
+    # ==================================================
 
     class Meta:
 
@@ -269,32 +257,21 @@ class Channel(models.Model):
         verbose_name_plural = "Canales"
 
         indexes = [
-
             models.Index(fields=["name"]),
-
             models.Index(fields=["slug"]),
-
             models.Index(fields=["country"]),
-
             models.Index(fields=["category"]),
-
             models.Index(fields=["language"]),
-
             models.Index(fields=["status"]),
-
             models.Index(fields=["is_active"]),
-
             models.Index(fields=["is_featured"]),
-
             models.Index(fields=["tvg_id"]),
-
             models.Index(fields=["license_status"]),
-
         ]
 
-    # ==========================================
+    # ==================================================
     # SAVE
-    # ==========================================
+    # ==================================================
 
     def save(self, *args, **kwargs):
 
@@ -304,27 +281,35 @@ class Channel(models.Model):
 
             slug = base_slug
 
-            contador = 1
+            contador = 2
 
-            while (
-                Channel.objects
-                .filter(slug=slug)
-                .exclude(pk=self.pk)
-                .exists()
-            ):
-
-                contador += 1
-
+            while Channel.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{contador}"
+                contador += 1
 
             self.slug = slug
 
         super().save(*args, **kwargs)
 
-    # ==========================================
-    # REPRESENTACIÓN
-    # ==========================================
+    # ==================================================
+    # HELPERS
+    # ==================================================
+
+    @property
+    def is_youtube(self):
+        return self.source_type == "youtube"
+
+    @property
+    def is_iptv(self):
+        return self.source_type == "iptv"
+
+    @property
+    def is_twitch(self):
+        return self.source_type == "twitch"
+
+    # ==================================================
+    # STR
+    # ==================================================
 
     def __str__(self):
-
         return self.name

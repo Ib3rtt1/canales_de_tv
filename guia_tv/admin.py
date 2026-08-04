@@ -16,6 +16,7 @@ class ChannelAdmin(admin.ModelAdmin):
 
     list_display = (
         "name",
+        "source_type",
         "country",
         "category",
         "quality",
@@ -27,6 +28,7 @@ class ChannelAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
+        "source_type",
         "country",
         "category",
         "quality",
@@ -39,12 +41,137 @@ class ChannelAdmin(admin.ModelAdmin):
     search_fields = (
         "name",
         "description",
+        "youtube_channel",
+        "youtube_video_id",
         "epg_id",
+    )
+
+    readonly_fields = (
+        "views",
+        "watching_now",
+        "created_at",
+        "updated_at",
     )
 
     prepopulated_fields = {
         "slug": ("name",)
     }
+
+    fieldsets = (
+
+        (
+            "Información general",
+            {
+                "fields": (
+                    "name",
+                    "slug",
+                    "description",
+                    "website",
+                    "logo",
+                    "logo_url",
+                )
+            },
+        ),
+
+        (
+            "Origen del canal",
+            {
+                "fields": (
+                    "source_type",
+                )
+            },
+        ),
+
+        (
+            "IPTV",
+            {
+                "fields": (
+                    "stream_url",
+                    "stream_type",
+                    "tvg_id",
+                    "tvg_name",
+                    "epg_id",
+                )
+            },
+        ),
+
+        (
+            "YouTube",
+            {
+                "fields": (
+                    "youtube_video_id",
+                    "youtube_channel",
+                )
+            },
+        ),
+
+        (
+            "Clasificación",
+            {
+                "fields": (
+                    "country",
+                    "language",
+                    "category",
+                    "quality",
+                    "resolution",
+                )
+            },
+        ),
+
+        (
+            "Estado",
+            {
+                "fields": (
+                    "status",
+                    "is_verified",
+                    "response_time",
+                    "last_checked",
+                )
+            },
+        ),
+
+        (
+            "Licencia",
+            {
+                "fields": (
+                    "license_status",
+                    "license_note",
+                )
+            },
+        ),
+
+        (
+            "Visibilidad",
+            {
+                "fields": (
+                    "is_active",
+                    "is_public",
+                    "is_featured",
+                )
+            },
+        ),
+
+        (
+            "Estadísticas",
+            {
+                "fields": (
+                    "views",
+                    "watching_now",
+                )
+            },
+        ),
+
+        (
+            "Fechas",
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                )
+            },
+        ),
+
+    )
 
     list_per_page = 50
 
